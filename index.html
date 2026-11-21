@@ -1,0 +1,2122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POP MART Hong Kong | LABUBU (THE MONSTERS) Official Store Simulation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       THEME VARIABLES & TEMPLATE SWITCHER STYLES
+       ========================================================================== */
+    :root {
+      --pop-red: #E60012;
+      --bg-page: #FFF7FA;
+      --bg-card: #FFFFFF;
+      --bg-image-box: #FFF0F5;
+      --text-main: #2D2226;
+      --text-muted: #7C6870;
+      --border-color: #FFD6E5;
+      --accent-primary: #FF5C97;
+      --accent-secondary: #FFB8D2;
+      --card-radius: 1.5rem;
+      --card-shadow: 0 10px 25px -5px rgba(255, 92, 151, 0.14);
+      --font-display: 'Fredoka', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --header-bg: rgba(255, 255, 255, 0.9);
+      --card-border-width: 2px;
+    }
+
+    /* Template 1: Pastel Kawaii Macaron (Default Cute) */
+    body.theme-kawaii {
+      --bg-page: #FFF7FA;
+      --bg-card: #FFFFFF;
+      --bg-image-box: #FFF0F6;
+      --text-main: #332329;
+      --text-muted: #846974;
+      --border-color: #FFD3E4;
+      --accent-primary: #FF579A;
+      --accent-secondary: #FFE3EE;
+      --card-radius: 1.5rem;
+      --card-shadow: 0 10px 24px -4px rgba(255, 87, 154, 0.15);
+      --font-display: 'Fredoka', sans-serif;
+      --header-bg: rgba(255, 249, 252, 0.92);
+      --card-border-width: 2px;
+      background-image: radial-gradient(#FFD6E7 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
+    }
+
+    /* Template 2: Official Pop Mart HK Clean Red (Inspired by Screenshots 1-3) */
+    body.theme-official {
+      --bg-page: #FFFFFF;
+      --bg-card: #FFFFFF;
+      --bg-image-box: #F5F5F5;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --border-color: #EAEAEA;
+      --accent-primary: #E60012;
+      --accent-secondary: #F5F5F5;
+      --card-radius: 0.25rem;
+      --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --header-bg: #FFFFFF;
+      --card-border-width: 1px;
+      background-image: none;
+    }
+
+    /* Template 3: Wacky Mart Retro Comic (Inspired by Screenshots 6 & 7) */
+    body.theme-wacky {
+      --bg-page: #FFFBEB;
+      --bg-card: #FFFFFF;
+      --bg-image-box: #FEF3C7;
+      --text-main: #1E1B18;
+      --text-muted: #5C5346;
+      --border-color: #1E1B18;
+      --accent-primary: #FF6B00;
+      --accent-secondary: #FDE047;
+      --card-radius: 1rem;
+      --card-shadow: 5px 5px 0px #1E1B18;
+      --font-display: 'Fredoka', sans-serif;
+      --header-bg: #FEF08A;
+      --card-border-width: 2.5px;
+      background-image: radial-gradient(#FCD34D 1.6px, transparent 1.6px);
+      background-size: 20px 20px;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      transition: background-color 0.35s ease, color 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    .font-display {
+      font-family: var(--font-display);
+    }
+
+    .theme-card {
+      background-color: var(--bg-card);
+      border: var(--card-border-width) solid var(--border-color);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .theme-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .theme-img-box {
+      background-color: var(--bg-image-box);
+      border-radius: calc(var(--card-radius) - 0.35rem);
+    }
+
+    .btn-primary-theme {
+      background-color: var(--accent-primary);
+      color: #FFFFFF;
+      border-radius: calc(var(--card-radius) * 0.75);
+      transition: all 0.2s ease;
+    }
+    body.theme-wacky .btn-primary-theme {
+      border: 2px solid #1E1B18;
+      box-shadow: 3px 3px 0px #1E1B18;
+    }
+    body.theme-wacky .btn-primary-theme:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #1E1B18;
+    }
+
+    /* ==========================================================================
+       ANIMATIONS (Shaking, Ripping, Floating, Confetti, Sparkles)
+       ========================================================================== */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    .animate-float {
+      animation: floatSlow 3.5s ease-in-out infinite;
+    }
+
+    @keyframes boxShake {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      15% { transform: rotate(-11deg) scale(1.05); }
+      30% { transform: rotate(11deg) scale(1.07); }
+      45% { transform: rotate(-9deg) scale(1.05); }
+      60% { transform: rotate(9deg) scale(1.07); }
+      75% { transform: rotate(-5deg) scale(1.03); }
+      90% { transform: rotate(4deg) scale(1.02); }
+    }
+    .animate-shake {
+      animation: boxShake 0.65s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes bounceProcess {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      40% { transform: translateY(-22px) scaleY(1.06); }
+      85% { transform: translateY(0) scaleY(0.92) scaleX(1.07); }
+    }
+    .animate-bounce-cute {
+      animation: bounceProcess 1.1s infinite ease-in-out;
+    }
+
+    @keyframes popReveal {
+      0% { opacity: 0; transform: scale(0.3) rotate(-12deg); }
+      65% { opacity: 1; transform: scale(1.12) rotate(4deg); }
+      85% { transform: scale(0.96) rotate(-2deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    .animate-pop-reveal {
+      animation: popReveal 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes sunburstSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-sunburst {
+      animation: sunburstSpin 14s linear infinite;
+    }
+
+    @keyframes tearStrip {
+      0% { transform: translateX(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateX(140%) rotate(18deg); opacity: 0; }
+    }
+    .animate-tear {
+      animation: tearStrip 0.55s ease-in forwards;
+    }
+
+    @keyframes particleFly {
+      0% {
+        transform: translate(0, 0) scale(0.5) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(var(--rot));
+        opacity: 0;
+      }
+    }
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      animation: particleFly 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(230, 0, 18, 0.25); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(230, 0, 18, 0.45); }
+  </style>
+</head>
+<body class="theme-kawaii min-h-screen flex flex-col">
+
+  <!-- ==========================================================================
+       TOP TEMPLATE STYLE SWITCHER BAR (3 Interactive Website Templates)
+       ========================================================================== -->
+  <div class="bg-neutral-900 text-white text-xs py-2 px-4 sticky top-0 z-50 border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-semibold tracking-wide text-pink-200">POP MART HK × LABUBU Interactive Store</span>
+        <span class="hidden md:inline text-neutral-400">| Switch Website Template Style:</span>
+      </div>
+      <div class="flex items-center gap-1.5 sm:gap-2" id="template-switcher">
+        <button onclick="setTemplate('kawaii')" data-tpl="kawaii"
+          class="tpl-btn px-3 py-1 rounded-full font-semibold transition flex items-center gap-1.5 bg-pink-500 text-white shadow">
+          <span>🎀</span> <span>1. Pastel Kawaii</span>
+        </button>
+        <button onclick="setTemplate('official')" data-tpl="official"
+          class="tpl-btn px-3 py-1 rounded-full font-semibold transition flex items-center gap-1.5 bg-white/10 text-neutral-200 hover:bg-white/20">
+          <span>🏢</span> <span>2. Official HK Clean</span>
+        </button>
+        <button onclick="setTemplate('wacky')" data-tpl="wacky"
+          class="tpl-btn px-3 py-1 rounded-full font-semibold transition flex items-center gap-1.5 bg-white/10 text-neutral-200 hover:bg-white/20">
+          <span>🍜</span> <span>3. Wacky Mart Pop</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MAIN STORE HEADER (Inspired by Official Pop Mart HK Header)
+       ========================================================================== -->
+  <header style="background-color: var(--header-bg); border-bottom: 1px solid var(--border-color);"
+    class="sticky top-[40px] sm:top-[36px] z-40 backdrop-blur-md transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <!-- Left: Search Input -->
+      <div class="flex-1 max-w-xs hidden sm:block">
+        <div class="relative">
+          <input id="search-input" type="text" placeholder="Search Labubu, Macaron, Have A Seat..."
+            oninput="handleSearch(this.value)"
+            style="border-color: var(--border-color); background-color: var(--bg-card);"
+            class="w-full pl-4 pr-9 py-1.5 text-sm border rounded-full focus:outline-none focus:ring-2 focus:ring-[#E60012]/30 transition" />
+          <svg class="w-4 h-4 absolute right-3 top-2.5 opacity-60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Center: Signature POP MART Red Box Logo -->
+      <button onclick="switchView('shop')" class="flex flex-col items-center group cursor-pointer focus:outline-none">
+        <div class="bg-[#E60012] text-white font-black tracking-tighter text-xl sm:text-2xl px-3.5 py-0.5 select-none shadow-sm group-hover:scale-105 transition-transform">
+          POP MART
+        </div>
+        <span class="text-[10px] tracking-[0.22em] font-bold mt-0.5 opacity-70">HONG KONG • THE MONSTERS</span>
+      </button>
+
+      <!-- Right: Collection Shelf & Shopping Bag -->
+      <div class="flex-1 flex items-center justify-end gap-2 sm:gap-3">
+        <!-- My Unboxed Collection Button -->
+        <button onclick="openCollectionModal()"
+          style="border-color: var(--border-color); background-color: var(--bg-card);"
+          class="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs sm:text-sm font-semibold hover:scale-105 transition cursor-pointer">
+          <span>🧸</span>
+          <span class="hidden md:inline">My Shelf</span>
+          <span id="collection-badge" class="bg-amber-400 text-neutral-900 font-extrabold text-[11px] px-1.5 py-0.2 rounded-full">0</span>
+        </button>
+
+        <!-- Shopping Bag Button -->
+        <button onclick="toggleCart(true)"
+          class="relative flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E60012] text-white text-xs sm:text-sm font-bold shadow hover:bg-[#c90010] active:scale-95 transition cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="hidden sm:inline">Bag</span>
+          <span id="cart-badge" class="bg-white text-[#E60012] font-extrabold text-xs px-1.5 py-0.2 rounded-full">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sub Navigation Tabs -->
+    <nav style="border-color: var(--border-color);" class="border-t overflow-x-auto">
+      <div class="max-w-7xl mx-auto px-4 flex items-center justify-start sm:justify-center gap-5 sm:gap-8 py-2 text-xs sm:text-sm font-bold whitespace-nowrap">
+        <button onclick="filterByNav('ALL')" class="nav-tab text-[#E60012] underline underline-offset-4 cursor-pointer">POP NOW ✨</button>
+        <button onclick="filterByNav('HOT')" class="nav-tab opacity-80 hover:opacity-100 cursor-pointer">NEW & HOT 🔥</button>
+        <button onclick="filterByNav('PLUSH')" class="nav-tab opacity-80 hover:opacity-100 cursor-pointer">VINYL PLUSH</button>
+        <button onclick="filterByNav('FIGURE')" class="nav-tab opacity-80 hover:opacity-100 cursor-pointer">BLIND BOXES</button>
+        <button onclick="filterByNav('ACCESSORY')" class="nav-tab opacity-80 hover:opacity-100 cursor-pointer">WACKY MART & CASES</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==========================================================================
+       VIEW 1: SHOPPING CATALOG VIEW
+       ========================================================================== -->
+  <main id="view-shop" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <!-- Hero Banner (Adapted from the official LABUBU intro text in Screenshot 1) -->
+    <section class="text-center max-w-3xl mx-auto mb-8 sm:mb-10 relative">
+      <div id="kawaii-stickers" class="pointer-events-none select-none">
+        <span class="hidden sm:inline-block absolute -left-8 top-1 text-3xl animate-float">🐰</span>
+        <span class="hidden sm:inline-block absolute -right-8 top-2 text-3xl animate-float" style="animation-delay: 1s;">🍓</span>
+      </div>
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-2 bg-[#E60012]/10 text-[#E60012]">
+        <span>★</span> OFFICIAL IP SERIES • THE MONSTERS 精靈天團
+      </div>
+      <h1 class="font-display text-3xl sm:text-5xl font-extrabold tracking-tight mb-3">
+        LABUBU
+      </h1>
+      <p style="color: var(--text-muted);" class="text-xs sm:text-sm leading-relaxed px-2">
+        Explore official <strong>POP NOW</strong> display trays, shake numbered blind boxes for hints, view full series lineups, and unbox your Labubu after our 20-second Hong Kong express order processing!
+      </p>
+
+      <!-- Mobile Search Bar -->
+      <div class="mt-4 sm:hidden">
+        <input type="text" placeholder="Search Secret Gallery, Wishes, Wacky Mart..." oninput="handleSearch(this.value)"
+          style="border-color: var(--border-color); background-color: var(--bg-card);"
+          class="w-full px-4 py-2 text-sm border rounded-full focus:outline-none" />
+      </div>
+    </section>
+
+    <!-- Layout: Left Category Sidebar + Right Product Grid -->
+    <div class="flex flex-col lg:flex-row gap-6 sm:gap-8">
+      <!-- Left Sidebar Filters (Inspired by Screenshot 1) -->
+      <aside class="w-full lg:w-60 shrink-0">
+        <div class="theme-card p-4 sm:p-5 sticky top-32">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b" style="border-color: var(--border-color);">
+            <span class="font-display font-bold text-sm tracking-wide flex items-center gap-1.5">
+              <span class="text-[#E60012]">●</span> 類別 CATEGORY
+            </span>
+          </div>
+
+          <div class="flex lg:flex-col gap-2 overflow-x-auto pb-1 lg:pb-0" id="category-filters">
+            <button onclick="setCategory('ALL')" data-cat="ALL"
+              class="cat-btn text-left px-3 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition bg-[#E60012] text-white">
+              All Blind Box Series (6)
+            </button>
+            <button onclick="setCategory('FIGURE')" data-cat="FIGURE"
+              class="cat-btn text-left px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition hover:bg-black/5">
+              🖼️ 盲盒手辦 Blind Figures
+            </button>
+            <button onclick="setCategory('PLUSH')" data-cat="PLUSH"
+              class="cat-btn text-left px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition hover:bg-black/5">
+              🧸 毛絨掛件 Plush Pendant
+            </button>
+          </div>
+
+          <!-- Free Shipping Promo Pill (Matches Screenshot 9 & 12: 訂單實付滿 HK$299.00 免運費) -->
+          <div class="hidden lg:block mt-6 p-3.5 rounded-2xl text-xs" style="background-color: var(--bg-image-box);">
+            <div class="font-display font-bold text-sm mb-1 text-[#E60012]">
+              🚚 免運費優惠
+            </div>
+            <p style="color: var(--text-muted);" class="leading-relaxed">
+              訂單實付滿 <strong>HK$299.00</strong> 免運費！Click any box tray to pick specific numbered boxes (#1–#12) or buy a whole set!
+            </p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Product Grid Area -->
+      <div class="flex-1">
+        <!-- Toolbar: Result count & Sort Dropdown -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <p class="text-xs sm:text-sm font-semibold" style="color: var(--text-muted);">
+            Showing <span id="product-count" class="font-bold" style="color: var(--text-main);">6</span> official POP NOW series
+          </p>
+          <div class="flex items-center gap-2">
+            <label for="sort-select" class="text-xs font-bold opacity-75">排序 Sort:</label>
+            <select id="sort-select" onchange="handleSort(this.value)"
+              style="border-color: var(--border-color); background-color: var(--bg-card);"
+              class="text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-xl border focus:outline-none cursor-pointer">
+              <option value="recommended">推薦 Recommended</option>
+              <option value="price-asc">價格: 低至高 (HK$)</option>
+              <option value="price-desc">價格: 高至低 (HK$)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Product Cards Grid -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW 1B: POP NOW INTERACTIVE PRODUCT & DISPLAY TRAY DETAIL VIEW
+       (Matches Screenshots 9, 12, and 15 with Pop Now Tray + Full Character Lineup)
+       ========================================================================== -->
+  <section id="view-detail" class="hidden flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <!-- Breadcrumb Bar (Matches Screenshot 15: 首頁 / 盲盒 / LABUBU / ...) -->
+    <div class="flex items-center justify-between gap-2 mb-5 text-xs">
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <button onclick="switchView('shop')" class="hover:underline opacity-70 cursor-pointer">首頁</button>
+        <span class="opacity-40">/</span>
+        <button onclick="switchView('shop')" class="hover:underline opacity-70 cursor-pointer">盲盒</button>
+        <span class="opacity-40">/</span>
+        <button onclick="switchView('shop')" class="hover:underline opacity-70 cursor-pointer">LABUBU</button>
+        <span class="opacity-40">/</span>
+        <span id="detail-breadcrumb" class="font-bold text-[#E60012]">Series Name</span>
+      </div>
+      <button onclick="switchView('shop')"
+        class="px-3 py-1.5 rounded-full border text-xs font-bold hover:bg-black/5 cursor-pointer"
+        style="border-color: var(--border-color);">
+        ← 返回列表 Back
+      </button>
+    </div>
+
+    <div id="detail-main-container" class="space-y-8">
+      <!-- Populated dynamically by renderProductDetail() -->
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       VIEW 2: 20-SECOND CHECKOUT PROCESSING SCREEN
+       ========================================================================== -->
+  <section id="view-processing" class="hidden flex-1 flex items-center justify-center px-4 py-12">
+    <div class="theme-card max-w-lg w-full p-6 sm:p-10 text-center relative overflow-hidden">
+      <!-- Top Decorative Ribbon -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E60012] text-white text-xs font-bold mb-6">
+        <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+        <span>POP MART HK ORDER PROCESSING</span>
+      </div>
+
+      <!-- Bouncing Mystery Box & Labubu SVG -->
+      <div class="relative w-36 h-36 mx-auto mb-6 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full bg-pink-200/40 animate-ping" style="animation-duration: 2.2s;"></div>
+        <div class="animate-bounce-cute relative z-10">
+          <svg class="w-28 h-28 drop-shadow-lg" viewBox="0 0 120 120">
+            <!-- Mystery Box -->
+            <rect x="22" y="34" width="76" height="72" rx="14" fill="#FF5C97" stroke="#2D2226" stroke-width="3"/>
+            <rect x="18" y="26" width="84" height="18" rx="7" fill="#FFE3EE" stroke="#2D2226" stroke-width="3"/>
+            <rect x="53" y="26" width="14" height="80" fill="#FFD166" stroke="#2D2226" stroke-width="2.5"/>
+            <!-- Cute Labubu Ears Peeking -->
+            <path d="M42 26 C38 6, 50 6, 52 26" fill="#F9C5D5" stroke="#2D2226" stroke-width="3"/>
+            <path d="M78 26 C82 6, 70 6, 68 26" fill="#F9C5D5" stroke="#2D2226" stroke-width="3"/>
+            <text x="60" y="78" text-anchor="middle" fill="#FFFFFF" font-family="Fredoka, sans-serif" font-weight="700" font-size="24">?</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Countdown Number -->
+      <h2 class="font-display text-2xl sm:text-3xl font-extrabold mb-1">
+        Preparing Your Blind Boxes...
+      </h2>
+      <p class="text-sm font-bold text-[#E60012] mb-5">
+        Estimated wait: <span id="countdown-seconds" class="text-2xl font-display">20</span>s remaining
+      </p>
+
+      <!-- Progress Bar -->
+      <div class="w-full h-4 bg-neutral-200/80 rounded-full overflow-hidden p-0.5 mb-4 border border-black/10">
+        <div id="process-progress-bar"
+          class="h-full rounded-full bg-gradient-to-r from-[#E60012] via-[#FF5C97] to-[#FFB703] transition-all duration-300"
+          style="width: 0%;"></div>
+      </div>
+
+      <!-- Live Status Step Message -->
+      <div style="background-color: var(--bg-image-box);" class="rounded-2xl p-4 mb-5 border" style="border-color: var(--border-color);">
+        <p id="process-status-text" class="font-display font-semibold text-sm sm:text-base">
+          0–5s: Connecting to Pop Mart Hong Kong Warehouse... 🏢
+        </p>
+        <p id="process-sub-text" class="text-xs mt-1 opacity-75">
+          Verifying your <span id="process-box-count">0</span> blind box(es) in order #PMHK-8829
+        </p>
+      </div>
+
+      <!-- 4 Mini Step Indicators -->
+      <div class="grid grid-cols-4 gap-2 text-[11px] font-bold mb-6">
+        <div id="step-pill-1" class="py-1.5 px-1 rounded-lg bg-[#E60012] text-white transition">1. Order</div>
+        <div id="step-pill-2" class="py-1.5 px-1 rounded-lg bg-neutral-200 text-neutral-500 transition">2. Shaking</div>
+        <div id="step-pill-3" class="py-1.5 px-1 rounded-lg bg-neutral-200 text-neutral-500 transition">3. Secret Check</div>
+        <div id="step-pill-4" class="py-1.5 px-1 rounded-lg bg-neutral-200 text-neutral-500 transition">4. Sealing</div>
+      </div>
+
+      <!-- Discreet Fast Demo Skip Button -->
+      <button onclick="finishProcessingEarly()"
+        class="text-[11px] underline opacity-45 hover:opacity-90 transition cursor-pointer">
+        Skip 20s wait (Quick Demo Mode)
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       VIEW 3: INTERACTIVE BLIND BOX UNBOXING STAGE
+       ========================================================================== -->
+  <section id="view-unbox" class="hidden flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8">
+    <!-- Top Header Banner -->
+    <div class="theme-card p-5 sm:p-6 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-1">
+          <span>✓</span> ORDER DELIVERED!
+        </div>
+        <h2 class="font-display text-2xl sm:text-3xl font-extrabold">
+          🎉 Your Mystery Blind Boxes Are Here!
+        </h2>
+        <p class="text-xs sm:text-sm mt-1" style="color: var(--text-muted);">
+          Tap <strong>Shake Box</strong> to hear clues, then hit <strong>Tear & Open!</strong> to reveal your Labubu with effects!
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2.5">
+        <button id="open-all-btn" onclick="openAllBoxes()"
+          class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-neutral-900 font-display font-bold text-xs sm:text-sm shadow cursor-pointer transition">
+          ✨ Open All Remaining
+        </button>
+        <button onclick="switchView('shop')"
+          class="px-4 py-2.5 rounded-xl bg-[#E60012] hover:bg-[#c80010] text-white font-display font-bold text-xs sm:text-sm shadow cursor-pointer transition">
+          + Shop More Boxes
+        </button>
+      </div>
+    </div>
+
+    <!-- Grid of Purchased Mystery Boxes -->
+    <div id="unbox-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Rendered dynamically -->
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SLIDE-OVER SHOPPING BAG DRAWER
+       ========================================================================== -->
+  <div id="cart-overlay" onclick="toggleCart(false)" class="hidden fixed inset-0 bg-black/45 backdrop-blur-xs z-50 transition-opacity"></div>
+  <aside id="cart-drawer"
+    style="background-color: var(--bg-card); border-left: 2px solid var(--border-color);"
+    class="fixed top-0 right-0 h-full w-full max-w-md z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+    <!-- Drawer Header -->
+    <div class="p-5 border-b flex items-center justify-between" style="border-color: var(--border-color);">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🛍️</span>
+        <h3 class="font-display text-xl font-extrabold">My Shopping Bag</h3>
+        <span id="drawer-count" class="text-xs font-bold px-2 py-0.5 rounded-full bg-[#E60012] text-white">0</span>
+      </div>
+      <button onclick="toggleCart(false)" class="p-2 rounded-full hover:bg-black/5 cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Drawer Items List -->
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 space-y-4">
+      <!-- Rendered dynamically -->
+    </div>
+
+    <!-- Drawer Footer / Checkout Summary -->
+    <div class="p-5 border-t space-y-3" style="border-color: var(--border-color); background-color: var(--bg-image-box);">
+      <!-- Dynamic Free Shipping Progress Bar (HK$299.00 threshold from screenshots) -->
+      <div class="bg-white/80 rounded-xl p-2.5 border text-xs" style="border-color: var(--border-color);">
+        <div class="flex justify-between font-bold mb-1">
+          <span id="shipping-promo-text" class="text-[#E60012]">訂單實付滿 HK$299.00 免運費</span>
+          <span id="shipping-fee-text" class="text-emerald-600">FREE</span>
+        </div>
+        <div class="w-full h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+          <div id="shipping-bar-fill" class="h-full bg-[#E60012] transition-all duration-300" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-lg font-extrabold">
+        <span>Total (HKD)</span>
+        <span id="cart-total" class="text-[#E60012]">HK$0.00</span>
+      </div>
+      <button id="checkout-btn" onclick="startCheckoutProcess()" disabled
+        class="w-full py-3.5 rounded-2xl bg-[#E60012] disabled:opacity-40 text-white font-display font-bold text-base shadow-lg hover:bg-[#c80010] transition cursor-pointer flex items-center justify-center gap-2">
+        <span>確認結帳 Confirm & Checkout</span>
+        <span>→</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       MODAL: SERIES PULLS PREVIEW (Shows all possible figures + Secret 1:72)
+       ========================================================================== -->
+  <div id="preview-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+    <div class="theme-card max-w-xl w-full p-6 max-h-[88vh] overflow-y-auto relative">
+      <button onclick="closePreviewModal()" class="absolute top-4 right-4 p-2 rounded-full hover:bg-black/5 cursor-pointer">✕</button>
+      <div id="preview-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: DRAMATIC CHARACTER REVEAL POPUP (Sparkles, Sunburst, ID Card)
+       ========================================================================== -->
+  <div id="reveal-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-sm">
+    <div id="reveal-modal-card" class="theme-card max-w-md w-full p-6 sm:p-8 text-center relative overflow-hidden">
+      <!-- Rotating Sunburst Background -->
+      <div id="reveal-sunburst" class="pointer-events-none absolute -inset-24 opacity-25 animate-sunburst flex items-center justify-center">
+        <svg viewBox="0 0 200 200" class="w-full h-full">
+          <g fill="#FFB703">
+            <polygon points="100,100 90,0 110,0"/>
+            <polygon points="100,100 165,25 180,40"/>
+            <polygon points="100,100 200,90 200,110"/>
+            <polygon points="100,100 180,160 165,175"/>
+            <polygon points="100,100 110,200 90,200"/>
+            <polygon points="100,100 35,175 20,160"/>
+            <polygon points="100,100 0,110 0,90"/>
+            <polygon points="100,100 20,40 35,25"/>
+          </g>
+        </svg>
+      </div>
+
+      <div id="reveal-modal-body" class="relative z-10">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: MY COLLECTION SHELF (All Unboxed Labubus)
+       ========================================================================== -->
+  <div id="collection-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+    <div class="theme-card max-w-3xl w-full p-6 max-h-[88vh] overflow-y-auto relative">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b" style="border-color: var(--border-color);">
+        <div>
+          <h3 class="font-display text-2xl font-extrabold">🧸 My Labubu Collection Shelf</h3>
+          <p class="text-xs" style="color: var(--text-muted);">Every blind box figure you unbox is saved here!</p>
+        </div>
+        <button onclick="closeCollectionModal()" class="p-2 rounded-full hover:bg-black/5 cursor-pointer">✕</button>
+      </div>
+      <div id="collection-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Cute Toast Notification -->
+  <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform translate-y-3">
+    <div class="bg-neutral-900 text-white px-4 py-2.5 rounded-full shadow-xl text-xs sm:text-sm font-bold flex items-center gap-2">
+      <span>🎀</span>
+      <span id="toast-msg">Added to bag!</span>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer style="border-color: var(--border-color); background-color: var(--bg-card);" class="border-t mt-12 py-6 px-4 text-center text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="bg-[#E60012] text-white font-black px-2 py-0.5 text-xs">POP MART</span>
+        <span style="color: var(--text-muted);">Interactive Labubu Blind Box Storefront Simulation (HK$)</span>
+      </div>
+      <p style="color: var(--text-muted);">
+        Switch between <strong>Pastel Kawaii</strong>, <strong>Official HK Clean</strong>, and <strong>Wacky Mart Pop</strong> above!
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       JAVASCRIPT: PRODUCT DATA, SVG ART GENERATOR, SOUND FX & UNBOXING ENGINE
+       ========================================================================== -->
+  <script>
+    /* --------------------------------------------------------------------------
+       1. WEB AUDIO API CUTE SOUND SYNTHESIZER (No external MP3 files needed!)
+       -------------------------------------------------------------------------- */
+    const AudioFX = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      },
+      playPop() {
+        try {
+          this.init();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(420, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(780, this.ctx.currentTime + 0.11);
+          gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.12);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.12);
+        } catch (e) {}
+      },
+      playShake() {
+        try {
+          this.init();
+          const notes = [320, 440, 360, 500];
+          notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            const t = this.ctx.currentTime + idx * 0.08;
+            osc.frequency.setValueAtTime(freq, t);
+            gain.gain.setValueAtTime(0.12, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.075);
+          });
+        } catch (e) {}
+      },
+      playReveal(isSecret = false) {
+        try {
+          this.init();
+          const chord = isSecret
+            ? [523.25, 659.25, 783.99, 1046.5, 1318.5]
+            : [523.25, 659.25, 783.99, 1046.5];
+          chord.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = isSecret ? 'triangle' : 'sine';
+            const t = this.ctx.currentTime + idx * 0.075;
+            osc.frequency.setValueAtTime(freq, t);
+            gain.gain.setValueAtTime(0.16, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.45);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.46);
+          });
+        } catch (e) {}
+      }
+    };
+
+    /* --------------------------------------------------------------------------
+       2. HIGH-DETAIL SVG ILLUSTRATION ENGINE FOR POP NOW TRAYS & EACH FIGURE
+          Matches every character from Secret Gallery, Wishes Come True & Wacky Mart!
+       -------------------------------------------------------------------------- */
+    function renderDisplayTraySVG(trayType, size = 'w-40 h-40') {
+      if (trayType === 'gallery-tray') {
+        // Matches Screenshot 9: Burgundy Museum Archway + Vermeer Pearl Earring Labubu + 12 Red Boxes
+        return `
+          <svg class="${size} mx-auto drop-shadow-md select-none" viewBox="0 0 200 210">
+            <!-- Museum Burgundy Header Arch -->
+            <path d="M24 95 L24 22 Q24 10 36 10 L164 10 Q176 10 176 22 L176 95 Z" fill="#8B1E24" stroke="#3D0C0E" stroke-width="2.5"/>
+            <text x="58" y="34" text-anchor="middle" fill="#FDE68A" font-family="serif" font-weight="700" font-size="10">THE</text>
+            <text x="58" y="46" text-anchor="middle" fill="#FDE68A" font-family="serif" font-weight="700" font-size="11">MONSTERS</text>
+            <text x="58" y="56" text-anchor="middle" fill="#FCD34D" font-style="italic" font-size="7">Secret Gallery</text>
+            <!-- Gold Painting Frame + Pearl Earring Labubu -->
+            <rect x="98" y="16" width="58" height="68" rx="3" fill="#1E293B" stroke="#D97706" stroke-width="4"/>
+            <ellipse cx="127" cy="48" rx="14" ry="13" fill="#FDE4D8"/>
+            <path d="M114 38 L120 18 L125 36 Z" fill="#F5E6CC"/>
+            <path d="M140 38 L134 18 L129 36 Z" fill="#F5E6CC"/>
+            <path d="M111 46 Q111 33 127 33 Q143 33 143 46 L146 66 L108 66 Z" fill="#2563EB"/>
+            <path d="M113 46 Q127 36 141 46" fill="none" stroke="#FACC15" stroke-width="4"/>
+            <circle cx="116" cy="54" r="2.5" fill="#FFFFFF"/>
+            <!-- Blue Museum Floor & Velvet Rope -->
+            <polygon points="24,95 176,95 186,110 14,110" fill="#7DD3FC" stroke="#0369A1" stroke-width="1.5"/>
+            <line x1="92" y1="88" x2="164" y2="88" stroke="#DC2626" stroke-width="2.5"/>
+            <circle cx="92" cy="84" r="2.5" fill="#FBBF24"/>
+            <circle cx="164" cy="84" r="2.5" fill="#FBBF24"/>
+            <!-- 12-Box Burgundy Display Tray (3 rows x 4 cols) -->
+            <rect x="14" y="110" width="172" height="92" rx="4" fill="#5C1116" stroke="#2D070A" stroke-width="2"/>
+            ${Array.from({ length: 12 }).map((_, idx) => {
+              const col = idx % 4;
+              const row = Math.floor(idx / 4);
+              const x = 18 + col * 42;
+              const y = 114 + row * 29;
+              return `
+                <rect x="${x}" y="${y}" width="38" height="26" rx="2" fill="#991B1B" stroke="#FCA5A5" stroke-width="0.8"/>
+                <rect x="${x+2}" y="${y+2}" width="9" height="7" fill="#111111"/>
+                <text x="${x+6.5}" y="${y+7.5}" text-anchor="middle" fill="#FFFFFF" font-size="5.5" font-weight="bold">${idx + 1}</text>
+                <rect x="${x+12}" y="${y+11}" width="15" height="5" fill="#E60012"/>
+              `;
+            }).join('')}
+          </svg>
+        `;
+      }
+
+      if (trayType === 'wishes-tray') {
+        // Matches Screenshot 12: Festive Green & Red Holiday Display + Gold Ribbon + 10 Red Boxes
+        return `
+          <svg class="${size} mx-auto drop-shadow-md select-none" viewBox="0 0 200 210">
+            <!-- Forest Green Holiday Backboard -->
+            <path d="M22 115 L22 24 Q22 12 34 12 L166 12 Q178 12 178 24 L178 115 Z" fill="#14532D" stroke="#052E16" stroke-width="2.5"/>
+            <!-- Gold Ribbon Across Top -->
+            <path d="M22 28 L178 36" stroke="#D4AF37" stroke-width="7"/>
+            <path d="M142 12 L142 115" stroke="#D4AF37" stroke-width="7"/>
+            <circle cx="142" cy="33" r="9" fill="#FDE047" stroke="#92400E" stroke-width="2"/>
+            <!-- Holiday Postcard Frame -->
+            <g transform="rotate(-5 95 68)">
+              <rect x="44" y="38" width="102" height="62" rx="4" fill="#FEF3C7" stroke="#B91C1C" stroke-width="2.5" stroke-dasharray="4 2"/>
+              <text x="64" y="34" fill="#B91C1C" font-family="Fredoka, sans-serif" font-weight="800" font-size="11">WISHES</text>
+              <text x="72" y="45" fill="#92400E" font-family="Fredoka, sans-serif" font-weight="800" font-size="10">COME TRUE</text>
+              <!-- Mini Christmas Tree & Labubus inside postcard -->
+              <polygon points="95,48 78,86 112,86" fill="#16A34A"/>
+              <circle cx="95" cy="47" r="3.5" fill="#FACC15"/>
+              <circle cx="70" cy="76" r="9" fill="#F9A8D4"/>
+              <circle cx="120" cy="76" r="9" fill="#FDE047"/>
+            </g>
+            <!-- 10-Box Holiday Red Tray (2 rows x 5 cols) -->
+            <rect x="14" y="115" width="172" height="84" rx="4" fill="#7F1D1D" stroke="#450A0A" stroke-width="2"/>
+            ${Array.from({ length: 10 }).map((_, idx) => {
+              const col = idx % 5;
+              const row = Math.floor(idx / 5);
+              const x = 18 + col * 33.5;
+              const y = 120 + row * 38;
+              return `
+                <rect x="${x}" y="${y}" width="30.5" height="34" rx="2" fill="#DC2626" stroke="#FDE68A" stroke-width="0.9"/>
+                <rect x="${x+2}" y="${y+2}" width="8" height="7" fill="#111111"/>
+                <text x="${x+6}" y="${y+7.5}" text-anchor="middle" fill="#FFFFFF" font-size="5.5" font-weight="bold">${idx + 1}</text>
+                <rect x="${x+8}" y="${y+16}" width="14" height="5" fill="#E60012" stroke="#FFFFFF" stroke-width="0.4"/>
+              `;
+            }).join('')}
+          </svg>
+        `;
+      }
+
+      // Wacky Mart Milk Carton Hero Photo (Matches Screenshot 15!)
+      return `
+        <svg class="${size} mx-auto drop-shadow-md select-none" viewBox="0 0 180 210">
+          <!-- White Cow-Print Milk Carton -->
+          <rect x="38" y="28" width="104" height="164" rx="8" fill="#FFFFFF" stroke="#1E1B18" stroke-width="3"/>
+          <path d="M38 40 L52 20 L128 20 L142 40 Z" fill="#F3F4F6" stroke="#1E1B18" stroke-width="2.5"/>
+          <!-- Cow Spots -->
+          <path d="M38 52 Q56 46 60 66 Q48 76 38 72 Z" fill="#1E1B18"/>
+          <path d="M142 58 Q122 54 118 74 Q130 84 142 78 Z" fill="#1E1B18"/>
+          <path d="M38 122 Q54 116 56 134 Q44 140 38 136 Z" fill="#1E1B18"/>
+          <path d="M142 126 Q124 120 120 138 Q132 146 142 140 Z" fill="#1E1B18"/>
+          <!-- Torn Paper Holes with Labubu Ears Poking Through -->
+          <path d="M64 46 C62 24, 75 24, 78 46 Z" fill="#FBCFE8" stroke="#1E1B18" stroke-width="2.2"/>
+          <path d="M116 46 C118 24, 105 24, 102 46 Z" fill="#FBCFE8" stroke="#1E1B18" stroke-width="2.2"/>
+          <!-- Torn Cutout Window with Labubu Blue Eyes Peeking Out -->
+          <rect x="56" y="84" width="68" height="34" rx="14" fill="#FDE4D8" stroke="#1E1B18" stroke-width="2.5"/>
+          <ellipse cx="76" cy="100" rx="6" ry="8" fill="#38BDF8" stroke="#1E1B18" stroke-width="1.5"/>
+          <circle cx="74" cy="97" r="2" fill="#FFFFFF"/>
+          <ellipse cx="104" cy="100" rx="6" ry="8" fill="#38BDF8" stroke="#1E1B18" stroke-width="1.5"/>
+          <circle cx="102" cy="97" r="2" fill="#FFFFFF"/>
+          <polygon points="90,109 86,104 94,104" fill="#FB7185"/>
+          <!-- Bottom Black MILK LABUBU Label -->
+          <rect x="38" y="144" width="104" height="48" rx="4" fill="#1E1B18"/>
+          <text x="90" y="168" text-anchor="middle" fill="#FFFFFF" font-family="Fredoka, sans-serif" font-weight="800" font-size="22" letter-spacing="1">MILK</text>
+          <text x="90" y="183" text-anchor="middle" fill="#FDE047" font-family="Fredoka, sans-serif" font-weight="700" font-size="11">LABUBU</text>
+        </svg>
+      `;
+    }
+
+    function renderLabubuCharacterSVG({
+      furColor = '#F5B8C8',
+      furSecondary = null,
+      eyeColor = '#3B2314',
+      noseColor = '#E63946',
+      accessory = 'none',
+      size = 'w-32 h-32'
+    }) {
+      const gradId = 'grad_' + Math.random().toString(36).slice(2, 8);
+      const fillMain = furSecondary ? `url(#${gradId})` : furColor;
+
+      // Special Wacky Mart Food Sculptures (Screenshots 16, 17, 18)
+      if (accessory === 'milk') {
+        return renderDisplayTraySVG('wacky-milk', size);
+      }
+      if (accessory === 'sardines') {
+        return `
+          <svg class="${size} mx-auto drop-shadow-sm select-none" viewBox="0 0 160 175">
+            <!-- Silver Open Tin Can -->
+            <rect x="36" y="24" width="88" height="118" rx="22" fill="#E5E7EB" stroke="#374151" stroke-width="3.5"/>
+            <rect x="44" y="32" width="72" height="102" rx="16" fill="#9CA3AF" stroke="#4B5563" stroke-width="2"/>
+            <!-- Rolled Gold Tin Lid + Pull Tab -->
+            <rect x="32" y="118" width="96" height="16" rx="8" fill="#D97706" stroke="#78350F" stroke-width="2.5"/>
+            <circle cx="24" cy="134" r="11" fill="none" stroke="#6B7280" stroke-width="4"/>
+            <!-- Sleeping Brown Labubu Tucked Inside -->
+            <path d="M62 46 C54 18, 70 18, 74 44 Z" fill="#92400E" stroke="#2B2124" stroke-width="2.5"/>
+            <path d="M98 46 C106 18, 90 18, 86 44 Z" fill="#92400E" stroke="#2B2124" stroke-width="2.5"/>
+            <ellipse cx="80" cy="68" rx="28" ry="24" fill="#92400E" stroke="#2B2124" stroke-width="2.5"/>
+            <ellipse cx="80" cy="70" rx="21" ry="17" fill="#FDE4D8"/>
+            <path d="M67 68 Q72 73 77 68" fill="none" stroke="#2B2124" stroke-width="2.2"/>
+            <path d="M83 68 Q88 73 93 68" fill="none" stroke="#2B2124" stroke-width="2.2"/>
+            <!-- Little Blue Sardine Toy -->
+            <ellipse cx="56" cy="96" rx="8" ry="20" transform="rotate(-15 56 96)" fill="#475569" stroke="#1E293B" stroke-width="2"/>
+          </svg>
+        `;
+      }
+      if (accessory === 'yakitori') {
+        return `
+          <svg class="${size} mx-auto drop-shadow-sm select-none" viewBox="0 0 175 160">
+            <!-- Wooden Skewer Stick & Sauce Glaze -->
+            <rect x="8" y="76" width="158" height="10" rx="4" fill="#D97706" stroke="#78350F" stroke-width="2"/>
+            <ellipse cx="92" cy="82" rx="68" ry="26" fill="#F59E0B" opacity="0.65"/>
+            <!-- Left White Dango -->
+            <circle cx="48" cy="82" r="20" fill="#F9FAFB" stroke="#374151" stroke-width="2.5"/>
+            <circle cx="48" cy="84" r="3" fill="#EF4444"/>
+            <!-- Middle Labubu Skewer -->
+            <path d="M82 54 C76 30, 88 30, 90 52 Z" fill="#92400E" stroke="#2B2124" stroke-width="2.2"/>
+            <path d="M102 54 C108 30, 96 30, 94 52 Z" fill="#92400E" stroke="#2B2124" stroke-width="2.2"/>
+            <circle cx="92" cy="82" r="22" fill="#92400E" stroke="#2B2124" stroke-width="2.5"/>
+            <ellipse cx="92" cy="84" rx="16" ry="13" fill="#FDE4D8"/>
+            <circle cx="86" cy="81" r="3" fill="#2B2124"/>
+            <path d="M95 81 L101 81" stroke="#2B2124" stroke-width="2.2"/>
+            <!-- Right Mini Skull Dango -->
+            <circle cx="134" cy="82" r="19" fill="#F3F4F6" stroke="#374151" stroke-width="2.5"/>
+            <circle cx="128" cy="80" r="4" fill="#7F1D1D"/>
+            <circle cx="140" cy="80" r="4" fill="#7F1D1D"/>
+          </svg>
+        `;
+      }
+      if (accessory === 'sandwich') {
+        return `
+          <svg class="${size} mx-auto drop-shadow-sm select-none" viewBox="0 0 160 175">
+            <!-- Ears Poking Top -->
+            <path d="M68 48 C64 24, 76 24, 78 48 Z" fill="#FDE4D8" stroke="#78350F" stroke-width="2.5"/>
+            <path d="M92 48 C96 24, 84 24, 82 48 Z" fill="#FDE4D8" stroke="#78350F" stroke-width="2.5"/>
+            <!-- Lettuce & Tomato Layers -->
+            <polygon points="80,36 24,148 136,148" fill="#4ADE80" stroke="#15803D" stroke-width="2.5"/>
+            <!-- Golden Toasted Triangle Bread -->
+            <polygon points="80,44 30,146 130,146" fill="#F59E0B" stroke="#92400E" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="80" cy="94" r="22" fill="none" stroke="#92400E" stroke-width="2"/>
+            <circle cx="74" cy="91" r="2.5" fill="#92400E"/>
+            <circle cx="86" cy="91" r="2.5" fill="#92400E"/>
+            <path d="M70 98 Q80 107 90 98" fill="none" stroke="#92400E" stroke-width="2"/>
+            <text x="80" y="130" text-anchor="middle" fill="#92400E" font-family="Fredoka, sans-serif" font-weight="800" font-size="10">HANDMADE</text>
+            <text x="80" y="141" text-anchor="middle" fill="#92400E" font-family="Fredoka, sans-serif" font-weight="800" font-size="10">SANDWICH</text>
+          </svg>
+        `;
+      }
+      if (accessory === 'onigiri') {
+        return `
+          <svg class="${size} mx-auto drop-shadow-sm select-none" viewBox="0 0 160 175">
+            <!-- Ears -->
+            <path d="M66 44 C60 18, 74 18, 77 44 Z" fill="#FDE4D8" stroke="#2B2124" stroke-width="2.5"/>
+            <path d="M94 44 C100 18, 86 18, 83 44 Z" fill="#FDE4D8" stroke="#2B2124" stroke-width="2.5"/>
+            <!-- Triangle White Rice Ball -->
+            <path d="M80 34 Q138 124 134 146 Q80 156 26 146 Q22 124 80 34 Z" fill="#F9FAFB" stroke="#9CA3AF" stroke-width="3"/>
+            <!-- Nori Seaweed Wrap -->
+            <rect x="56" y="114" width="48" height="38" rx="4" fill="#1F2937"/>
+            <!-- Labubu Face with Cool Red Sunglasses -->
+            <ellipse cx="80" cy="92" rx="28" ry="22" fill="#5C3A21" stroke="#2B2124" stroke-width="2"/>
+            <ellipse cx="80" cy="94" rx="22" ry="16" fill="#FDE4D8"/>
+            <rect x="57" y="84" width="20" height="13" rx="5" fill="#0EA5E9" stroke="#EF4444" stroke-width="3"/>
+            <rect x="83" y="84" width="20" height="13" rx="5" fill="#0EA5E9" stroke="#EF4444" stroke-width="3"/>
+            <line x1="77" y1="89" x2="83" y2="89" stroke="#EF4444" stroke-width="3"/>
+          </svg>
+        `;
+      }
+
+      // Standard & Custom Costumed Labubu Figures (Secret Gallery, Wishes Come True, Wacky Mart, Macaron, Have A Seat)
+      const isPlushPendant = ['macaron', 'seat', 'wishes-bear', 'wishes-bell', 'wishes-deer', 'wishes-snow', 'wishes-elf', 'wishes-santa', 'wishes-dog', 'wishes-gift', 'wishes-squad', 'wishes-wine', 'wishes-tree'].includes(accessory);
+
+      return `
+        <svg class="${size} mx-auto drop-shadow-sm select-none" viewBox="0 0 160 175">
+          <defs>
+            ${furSecondary ? `
+              <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="${furColor}"/>
+                <stop offset="50%" stop-color="${furSecondary}"/>
+                <stop offset="100%" stop-color="#BDE0FE"/>
+              </linearGradient>
+            ` : ''}
+          </defs>
+
+          <!-- Keyring + Festive Ribbon Bow for Plush Pendants -->
+          ${isPlushPendant ? `
+            <circle cx="80" cy="13" r="8.5" fill="none" stroke="#D4AF37" stroke-width="3"/>
+            <rect x="76" y="20" width="8" height="11" rx="2" fill="#D4AF37"/>
+          ` : ''}
+
+          ${accessory.startsWith('wishes-') ? `
+            <!-- Holiday Satin Bow on Top -->
+            <polygon points="80,35 56,23 62,41" fill="#E60012" stroke="#2B2124" stroke-width="2"/>
+            <polygon points="80,35 104,23 98,41" fill="#E60012" stroke="#2B2124" stroke-width="2"/>
+            <circle cx="80" cy="35" r="5" fill="#FACC15" stroke="#2B2124" stroke-width="1.8"/>
+          ` : ''}
+
+          <!-- Left & Right Bunny Ears -->
+          <path d="M56 56 C44 16, 66 14, 72 52 Z" fill="${fillMain}" stroke="#2B2124" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M58 50 C52 25, 64 24, 68 48 Z" fill="#FFD6E0"/>
+          <path d="M104 56 C116 16, 94 14, 88 52 Z" fill="${fillMain}" stroke="#2B2124" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M102 50 C108 25, 96 24, 92 48 Z" fill="#FFD6E0"/>
+
+          <!-- Mountain Landscape Overlay for 青山尋 -->
+          ${accessory === 'gallery-mountain' ? `
+            <path d="M36 156 L58 84 L80 120 L106 72 L126 156 Z" fill="#0D9488" stroke="#134E4A" stroke-width="3" stroke-linejoin="round"/>
+          ` : ''}
+
+          <!-- Fluffy Body / Art Gown -->
+          <ellipse cx="80" cy="134" rx="30" ry="26" fill="${fillMain}" stroke="#2B2124" stroke-width="3"/>
+          <ellipse cx="47" cy="128" rx="10" ry="14" transform="rotate(22 47 128)" fill="${fillMain}" stroke="#2B2124" stroke-width="3"/>
+          <ellipse cx="113" cy="128" rx="10" ry="14" transform="rotate(-22 113 128)" fill="${fillMain}" stroke="#2B2124" stroke-width="3"/>
+          <ellipse cx="66" cy="158" rx="11" ry="8" fill="#FCE1D6" stroke="#2B2124" stroke-width="2.5"/>
+          <ellipse cx="94" cy="158" rx="11" ry="8" fill="#FCE1D6" stroke="#2B2124" stroke-width="2.5"/>
+
+          <!-- Wacky Mart Specific Food Bodies -->
+          ${accessory === 'noodle' ? `
+            <path d="M48 118 L112 118 L104 162 L56 162 Z" fill="#E60012" stroke="#2B2124" stroke-width="3"/>
+            <rect x="52" y="126" width="56" height="16" rx="4" fill="#FFF8E7"/>
+            <text x="80" y="137" text-anchor="middle" font-size="8" font-weight="900" fill="#E60012">CUP NOODLE</text>
+          ` : ''}
+          ${accessory === 'shrimp' ? `
+            <path d="M44 115 Q36 156 80 160 Q124 156 116 115 Z" fill="#F4D35E" stroke="#2B2124" stroke-width="3"/>
+            <path d="M114 146 Q134 140 130 158 Q118 164 110 154 Z" fill="#E63946" stroke="#2B2124" stroke-width="2.5"/>
+          ` : ''}
+          ${accessory === 'corn' ? `
+            <path d="M42 128 Q26 112 46 156 L114 156 Q134 112 118 128 Z" fill="#65A30D" stroke="#365314" stroke-width="2.5"/>
+            <path d="M74 28 Q80 4 86 28" fill="none" stroke="#FDE047" stroke-width="5"/>
+          ` : ''}
+          ${accessory === 'chips' ? `
+            <path d="M44 134 Q80 172 116 134 Z" fill="#D97706" stroke="#78350F" stroke-width="3"/>
+            <circle cx="72" cy="122" r="9" fill="#FDE047" stroke="#B45309" stroke-width="2"/>
+          ` : ''}
+          ${accessory === 'chowmein' ? `
+            <rect x="50" y="114" width="60" height="46" rx="6" fill="#FFFFFF" stroke="#2B2124" stroke-width="2.5"/>
+            <text x="80" y="135" text-anchor="middle" font-size="7" font-weight="900" fill="#E60012">THE MONSTERS</text>
+          ` : ''}
+          ${accessory === 'salad' ? `
+            <ellipse cx="80" cy="108" rx="48" ry="54" fill="none" stroke="#65A30D" stroke-width="6"/>
+            <circle cx="80" cy="134" r="9" fill="#EF4444"/>
+          ` : ''}
+          ${accessory === 'sausage' ? `
+            <circle cx="62" cy="48" r="11" fill="#DC2626" stroke="#7F1D1D" stroke-width="2"/>
+            <ellipse cx="80" cy="138" rx="18" ry="22" fill="#EA580C" stroke="#7C2D12" stroke-width="2.5"/>
+          ` : ''}
+
+          <!-- Fluffy Head Hood -->
+          <ellipse cx="80" cy="84" rx="42" ry="36" fill="${fillMain}" stroke="#2B2124" stroke-width="3"/>
+
+          <!-- Chow Mein Noodle Hair -->
+          ${accessory === 'chowmein' ? `
+            <path d="M46 66 Q80 44 114 66" fill="none" stroke="#FACC15" stroke-width="9" stroke-linecap="round"/>
+          ` : ''}
+
+          <!-- Vinyl Face -->
+          <ellipse cx="80" cy="87" rx="31" ry="25" fill="${accessory === 'gallery-venus' ? '#F3EFE6' : '#FDE4D8'}" stroke="#2B2124" stroke-width="2.2"/>
+
+          <!-- Rosy Cheeks -->
+          <ellipse cx="58" cy="91" rx="6" ry="3.5" fill="#FF9AA2" opacity="0.7"/>
+          <ellipse cx="102" cy="91" rx="6" ry="3.5" fill="#FF9AA2" opacity="0.7"/>
+
+          <!-- Big Expressive Eyes -->
+          <ellipse cx="67" cy="82" rx="6.5" ry="8" fill="${eyeColor}"/>
+          <circle cx="65" cy="79" r="2.3" fill="#FFFFFF"/>
+          <ellipse cx="93" cy="82" rx="6.5" ry="8" fill="${eyeColor}"/>
+          <circle cx="91" cy="79" r="2.3" fill="#FFFFFF"/>
+
+          <!-- Eyebrows & Nose -->
+          <path d="M60 72 L73 75" stroke="#2B2124" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M100 72 L87 75" stroke="#2B2124" stroke-width="2.2" stroke-linecap="round"/>
+          <polygon points="80,92 76,87 84,87" fill="${noseColor}"/>
+
+          <!-- Iconic Labubu 9-Tooth Smile -->
+          <path d="M56 93 Q80 112 104 93" fill="none" stroke="#2B2124" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M62 96 L65 101 L68 97 L71 103 L75 98 L80 104 L85 98 L89 103 L92 97 L95 101 L98 96"
+            fill="#FFFFFF" stroke="#2B2124" stroke-width="1.4" stroke-linejoin="round"/>
+
+          <!-- Secret Gallery Hats & Props -->
+          ${['gallery-rembrandt', 'gallery-monet'].includes(accessory) ? `
+            <ellipse cx="80" cy="52" rx="46" ry="10" fill="${accessory === 'gallery-rembrandt' ? '#3F2E26' : '#D6C39C'}" stroke="#2B2124" stroke-width="2.5"/>
+            <path d="M55 50 Q80 34 105 50 Z" fill="${accessory === 'gallery-rembrandt' ? '#4E382E' : '#E7D7B5'}" stroke="#2B2124" stroke-width="2.5"/>
+          ` : ''}
+          ${accessory === 'gallery-pancake' ? `
+            <ellipse cx="80" cy="48" rx="18" ry="6" fill="#D97706" stroke="#78350F" stroke-width="2"/>
+            <rect x="76" y="42" width="8" height="5" fill="#FDE047"/>
+          ` : ''}
+          ${accessory === 'wishes-tree' ? `
+            <polygon points="80,26 52,58 108,58" fill="#15803D" stroke="#052E16" stroke-width="2.5"/>
+            <circle cx="80" cy="25" r="4" fill="#EF4444"/>
+          ` : ''}
+        </svg>
+      `;
+    }
+
+    /* --------------------------------------------------------------------------
+       3. AUTHENTIC LABUBU PRODUCT CATALOG (Matching Screenshots 9 through 18)
+       -------------------------------------------------------------------------- */
+    const PRODUCTS = [
+      {
+        id: 'secret-gallery',
+        brand: 'POP MART',
+        name: 'THE MONSTERS 秘密展廳系列手辦 (Secret Gallery Series)',
+        price: 81.00,
+        setSize: 12,
+        category: 'FIGURE',
+        tag: '新品 NEW',
+        lowStock: false,
+        trayType: 'gallery-tray',
+        boxBg: '#7F1D1D',
+        boxAccent: '#FDE68A',
+        badgeText: 'SECRET GALLERY 秘密展廳',
+        previewArt: { furColor: '#F5E6CC', noseColor: '#D97706', accessory: 'gallery-milkmaid' },
+        pulls: [
+          { name: '浪漫依偎 (Romantic Embrace)', rarity: '常規款 Regular', furColor: '#EAB308', furSecondary: '#FDE68A', noseColor: '#B45309', accessory: 'gallery-klimt', quote: 'Golden Klimt robe embracing a cute museum ghost! 🎨' },
+          { name: '整裝出巡 (Ready to Parade)', rarity: '常規款 Regular', furColor: '#5C4033', noseColor: '#DC2626', accessory: 'gallery-rembrandt', quote: 'Rembrandt hat & crimson sash ready for the night watch! 🎩' },
+          { name: '微風定格 (Breeze Frozen)', rarity: '常規款 Regular', furColor: '#93C5FD', furSecondary: '#DBEAFE', noseColor: '#2563EB', accessory: 'gallery-monet', quote: 'Impressionist garden stroll with a green parasol! ☂️' },
+          { name: '大地之禮 (Gift of the Earth)', rarity: '常規款 Regular', furColor: '#B45309', furSecondary: '#D97706', noseColor: '#78350F', accessory: 'gallery-gleaners', quote: 'Harvesting golden wheat with tiny forest friends! 🌾' },
+          { name: '永恆之美 (Eternal Beauty)', rarity: '常規款 Regular', furColor: '#F3EFE6', furSecondary: '#E5DEC9', noseColor: '#A8A29E', accessory: 'gallery-venus', quote: 'Classical white marble sculpture pose! 🏛️' },
+          { name: '青山尋 (Seeking Green Hills)', rarity: '常規款 Regular', furColor: '#10B981', furSecondary: '#0EA5E9', noseColor: '#047857', accessory: 'gallery-mountain', quote: 'Peeking out from emerald-blue mountain peaks! ⛰️' },
+          { name: '牛奶浴 (Milk Bath)', rarity: '常規款 Regular', furColor: '#3B82F6', furSecondary: '#FDE047', noseColor: '#1D4ED8', accessory: 'gallery-milkmaid', quote: 'Vermeer Milkmaid pouring fresh creamy milk! 🥛' },
+          { name: '花間趣 (Joy Among Flowers)', rarity: '常規款 Regular', furColor: '#FB7185', furSecondary: '#FDBA74', noseColor: '#E11D48', accessory: 'gallery-tang', quote: 'Tang Dynasty court lady with a loyal black puppy! 🌸' },
+          { name: '宮廷一幕 (Palace Scene)', rarity: '常規款 Regular', furColor: '#FDE68A', furSecondary: '#E5E7EB', noseColor: '#D97706', accessory: 'gallery-palace', quote: 'Royal baroque gown from Las Meninas! 👑' },
+          { name: '動靜之間 (Stillness & Motion)', rarity: '常規款 Regular', furColor: '#FEF08A', noseColor: '#D97706', accessory: 'gallery-pancake', quote: 'Cozy yellow blanket with stacked pancakes on head! 🥞' },
+          { name: '芭蕾舞步 (Ballet Steps)', rarity: '常規款 Regular', furColor: '#FCE7F3', furSecondary: '#FFFFFF', noseColor: '#DB2777', accessory: 'gallery-ballet', quote: 'Graceful Degas ballerina twirling on stage! 🩰' },
+          { name: '珍珠少女 (Pearl Earring SECRET)', rarity: '隱藏款 SECRET 1:72', isSecret: true, furColor: '#2563EB', furSecondary: '#FACC15', noseColor: '#E60012', accessory: 'gallery-milkmaid', quote: '👑 ULTRA RARE SECRET! Girl with a Pearl Earring Labubu!' }
+        ]
+      },
+      {
+        id: 'wishes-come-true',
+        brand: 'POP MART',
+        name: '心願達成系列-毛絨掛件盲盒 (Wishes Come True Plush Pendant)',
+        price: 159.00,
+        setSize: 10,
+        category: 'PLUSH',
+        tag: '新品 NEW',
+        lowStock: false,
+        trayType: 'wishes-tray',
+        boxBg: '#B91C1C',
+        boxAccent: '#FDE047',
+        badgeText: 'WISHES COME TRUE 心願達成',
+        previewArt: { furColor: '#F9A8D4', noseColor: '#BE185D', accessory: 'wishes-bear' },
+        pulls: [
+          { name: '薑餅熊寶 (Gingerbread Bear)', rarity: '常規款 Regular', furColor: '#F9A8D4', noseColor: '#BE185D', accessory: 'wishes-bear', quote: 'Sweet pastel pink gingerbread bear with burgundy bow! 🧸' },
+          { name: '歡樂鈴鐺 (Joyful Bell)', rarity: '常規款 Regular', furColor: '#FACC15', furSecondary: '#FEF08A', noseColor: '#DC2626', accessory: 'wishes-bell', quote: 'Jingle all the way with golden holiday bells! 🔔' },
+          { name: '瘋子小鹿 (Crazy Reindeer)', rarity: '常規款 Regular', furColor: '#78350F', noseColor: '#EA580C', accessory: 'wishes-deer', quote: 'Goofy reindeer antlers and jingling collar bell! 🦌' },
+          { name: '甜筒雪人 (Cone Snowman)', rarity: '常規款 Regular', furColor: '#F8FAFC', furSecondary: '#BAE6FD', noseColor: '#F97316', accessory: 'wishes-snow', quote: 'Cozy blue scarf & carrot nose snowman! ⛄' },
+          { name: '好運精靈 (Lucky Elf)', rarity: '常規款 Regular', furColor: '#16A34A', furSecondary: '#DC2626', noseColor: '#EAB308', accessory: 'wishes-elf', quote: 'Delivering wishing stars in a striped Santa hat! ⭐' },
+          { name: '長帽聖誕 (Long-Hat Santa)', rarity: '常規款 Regular', furColor: '#DC2626', furSecondary: '#FFFFFF', noseColor: '#B91C1C', accessory: 'wishes-santa', quote: 'Classic fluffy white beard & long Santa cap! 🎅' },
+          { name: '鬆軟小狗 (Fluffy Puppy)', rarity: '常規款 Regular', furColor: '#D6B88D', noseColor: '#78350F', accessory: 'wishes-dog', quote: 'Floppy puppy ears hugging a warm holiday pretzel! 🥨' },
+          { name: '神秘禮物 (Mystery Gift)', rarity: '常規款 Regular', furColor: '#881337', furSecondary: '#FFFFFF', noseColor: '#E11D48', accessory: 'wishes-gift', quote: 'Wrapped in velvet crimson & snowy white fur! 🎁' },
+          { name: '許願小隊 (Wishing Squad)', rarity: '常規款 Regular', furColor: '#D97706', furSecondary: '#FDE68A', noseColor: '#0D9488', accessory: 'wishes-squad', quote: 'Cozy knit tree hood with a tiny teal bow! 🎄' },
+          { name: '繽紛紅酒 (Mulled Wine)', rarity: '常規款 Regular', furColor: '#7F1D1D', noseColor: '#FACC15', accessory: 'wishes-wine', quote: 'Warm spiced berry plush for winter nights! 🍷' },
+          { name: 'Polar 在松樹裡 (隱藏款 SECRET)', rarity: '隱藏款 SECRET 1:72', isSecret: true, furColor: '#15803D', furSecondary: '#DC2626', noseColor: '#FACC15', accessory: 'wishes-tree', quote: '🎄 ULTRA SECRET 1:72! Polar hiding inside a fluffy pine tree!' }
+        ]
+      },
+      {
+        id: 'wacky-mart-fig',
+        brand: 'POP MART',
+        name: 'THE MONSTERS 怪味便利店系列手辦 (Wacky Mart Series)',
+        price: 81.00,
+        setSize: 12,
+        category: 'FIGURE',
+        tag: '低存貨 LOW STOCK',
+        lowStock: true,
+        trayType: 'wacky-milk',
+        boxBg: '#FEF08A',
+        boxAccent: '#EA580C',
+        badgeText: 'WACKY MART 怪味便利店',
+        previewArt: { furColor: '#FFFFFF', noseColor: '#FB7185', accessory: 'milk' },
+        pulls: [
+          { name: 'Grilled Sausage 烤香腸', rarity: '常規款 Regular', furColor: '#86EFAC', noseColor: '#EA580C', accessory: 'sausage', quote: 'Cherry tomato hat hugging a sizzling octopus sausage! 🌭' },
+          { name: 'Fried Shrimp 炸蝦', rarity: '常規款 Regular', furColor: '#FDE047', noseColor: '#EF4444', accessory: 'shrimp', quote: 'Golden crispy tempura prawn served on a plate! 🍤' },
+          { name: 'Corn 玉米', rarity: '常規款 Regular', furColor: '#FACC15', furSecondary: '#65A30D', noseColor: '#D97706', accessory: 'corn', quote: 'Sweet golden corn cob with silky corn-silk hair! 🌽' },
+          { name: 'Chips 薯片', rarity: '常規款 Regular', furColor: '#FB923C', noseColor: '#DC2626', accessory: 'chips', quote: 'Crunching crispy potato chips in a wooden bowl! 🥔' },
+          { name: 'Cup Noodles 泡麵', rarity: '常規款 Regular', furColor: '#93C5FD', noseColor: '#E60012', accessory: 'noodle', quote: 'Steaming hot Cup Noodle Labubu with sauna towel hat! 🍜' },
+          { name: 'Milk 牛奶', rarity: '常規款 Regular', furColor: '#FFFFFF', noseColor: '#FB7185', accessory: 'milk', quote: 'Iconic cow-spotted MILK LABUBU carton! 🥛' },
+          { name: 'Canned Sardines 沙丁魚罐頭', rarity: '常規款 Regular', furColor: '#92400E', noseColor: '#475569', accessory: 'sardines', quote: 'Napping peacefully inside a silver sardine tin! 🐟' },
+          { name: 'Yakitori 照燒串', rarity: '常規款 Regular', furColor: '#92400E', noseColor: '#D97706', accessory: 'yakitori', quote: 'Skewered with sweet dango & spooky skull friend! 🍢' },
+          { name: 'Chow Mein 炒麵', rarity: '常規款 Regular', furColor: '#FDE68A', noseColor: '#EA580C', accessory: 'chowmein', quote: 'Takeout noodle box with savory chow mein hair! 🥡' },
+          { name: 'Sandwich 三明治', rarity: '常規款 Regular', furColor: '#F59E0B', noseColor: '#16A34A', accessory: 'sandwich', quote: 'Toasted handmade triangle sandwich with fresh lettuce! 🥪' },
+          { name: 'Salad 沙拉', rarity: '常規款 Regular', furColor: '#F8FAFC', furSecondary: '#86EFAC', noseColor: '#EF4444', accessory: 'salad', quote: 'Fresh 5.20 garden salad bowl holding a red heart! 🥗' },
+          { name: 'Onigiri 飯糰', rarity: '常規款 Regular', furColor: '#F9FAFB', noseColor: '#EF4444', accessory: 'onigiri', quote: 'Cool seaweed rice ball wearing red sunglasses! 🍙' }
+        ]
+      },
+      {
+        id: 'macaron',
+        brand: 'POP MART',
+        name: 'THE MONSTERS 心動馬卡龍搪膠臉盲盒 (Exciting Macaron)',
+        price: 120.00,
+        setSize: 6,
+        category: 'PLUSH',
+        tag: 'HOT SELLER',
+        lowStock: false,
+        trayType: null,
+        boxBg: '#FFE5EC',
+        boxAccent: '#FF5C97',
+        badgeText: 'EXCITING MACARON 心動馬卡龍',
+        previewArt: { furColor: '#F7A8B8', eyeColor: '#3B2314', noseColor: '#E63946', accessory: 'macaron' },
+        pulls: [
+          { name: 'Lychee Berry 荔枝莓莓', rarity: '常規款 Regular', furColor: '#F7A8B8', noseColor: '#E63946', quote: 'Sweet like fresh lychee soda! 🍓' },
+          { name: 'Soymilk 豆乳', rarity: '常規款 Regular', furColor: '#FAF3E3', noseColor: '#D4A373', quote: 'Soft, creamy & ready for morning adventures! 🥛' },
+          { name: 'Toffee 太妃糖', rarity: '常規款 Regular', furColor: '#C69C72', noseColor: '#8D5B4C', quote: 'Warm caramel hugs all day long! 🍮' },
+          { name: 'Green Grape 青提', rarity: '常規款 Regular', furColor: '#B7E4C7', noseColor: '#52B788', quote: 'Fresh & bouncy like Muscat grapes! 🍇' },
+          { name: 'Sea Salt Coconut 海鹽椰椰', rarity: '常規款 Regular', furColor: '#A9D6E5', noseColor: '#468FAF', quote: 'Breezy ocean vibes in your pocket! 🥥' },
+          { name: 'Sesame Bean 芝麻豆豆', rarity: '常規款 Regular', furColor: '#B8B8C0', noseColor: '#5C5C66', quote: 'Cool, monochrome & super stylish! 🖤' },
+          { name: 'Chestnut Cocoa 栗子可可 (SECRET)', rarity: '隱藏款 SECRET 1:72', isSecret: true, furColor: '#5C3A21', noseColor: '#E60012', quote: '✨ ULTRA RARE SECRET! Chestnut Cocoa Labubu!' }
+        ]
+      },
+      {
+        id: 'have-a-seat',
+        brand: 'POP MART',
+        name: 'THE MONSTERS 坐坐派對搪膠毛絨盲盒 (Have A Seat)',
+        price: 120.00,
+        setSize: 6,
+        category: 'PLUSH',
+        tag: 'POPULAR',
+        lowStock: false,
+        trayType: null,
+        boxBg: '#FDF0D5',
+        boxAccent: '#BC6C25',
+        badgeText: 'HAVE A SEAT 坐坐派對',
+        previewArt: { furColor: '#F6D365', eyeColor: '#4A2C2A', noseColor: '#D97706', accessory: 'seat' },
+        pulls: [
+          { name: 'Sisi 思思', rarity: '常規款 Regular', furColor: '#FCE38A', noseColor: '#F38181', quote: 'Sitting happily with a big sunny grin! ☀️' },
+          { name: 'Dada 噠噠', rarity: '常規款 Regular', furColor: '#FFCAD4', noseColor: '#FF4D6D', quote: 'Heart eyes & strawberry fluff! 💕' },
+          { name: 'Ququ 曲曲', rarity: '常規款 Regular', furColor: '#B8F2E6', noseColor: '#2EC4B6', quote: 'Minty fresh & cozy on your desk! 🌿' },
+          { name: 'Zizi 吱吱', rarity: '常規款 Regular', furColor: '#E0C3FC', noseColor: '#9D4EDD', quote: 'Sleepy lavender dreams! 💜' },
+          { name: 'Baba 巴巴', rarity: '常規款 Regular', furColor: '#DDB892', noseColor: '#9C6644', quote: 'Biscuit-colored buddy always by your side! 🍪' },
+          { name: 'Hehe 呵呵', rarity: '常規款 Regular', furColor: '#D8E2DC', noseColor: '#6D6875', quote: 'Cheeky giggle and mischievous ears! 😜' },
+          { name: 'Duoduo 多多 (SECRET)', rarity: '隱藏款 SECRET 1:72', isSecret: true, furColor: '#4A2511', noseColor: '#FF0055', quote: '✨ SECRET EDITION! Duoduo with sparkly eyes!' }
+        ]
+      },
+      {
+        id: 'big-into-energy',
+        brand: 'POP MART',
+        name: 'THE MONSTERS 前方高能系列-搪膠毛絨掛件盲盒',
+        price: 120.00,
+        setSize: 6,
+        category: 'PLUSH',
+        tag: 'HOT',
+        lowStock: false,
+        trayType: null,
+        boxBg: '#EDE7F6',
+        boxAccent: '#7C4DFF',
+        badgeText: 'BIG INTO ENERGY 前方高能',
+        previewArt: { furColor: '#FFAFCC', furSecondary: '#CDB4DB', eyeColor: '#3A0CA3', noseColor: '#FF4D6D', accessory: 'macaron' },
+        pulls: [
+          { name: 'Love 愛情', rarity: '常規款 Regular', furColor: '#FF758F', furSecondary: '#FFCCD5', noseColor: '#E60012', quote: 'Overflowing with heart energy! ❤️' },
+          { name: 'Hope 希望', rarity: '常規款 Regular', furColor: '#90E0EF', furSecondary: '#CAF0F8', noseColor: '#0077B6', quote: 'Bright skies & endless optimism! 🩵' },
+          { name: 'Serenity 平靜', rarity: '常規款 Regular', furColor: '#95D5B2', furSecondary: '#D8F3DC', noseColor: '#2D6A4F', quote: 'Peaceful pastel forest vibes! 💚' },
+          { name: 'Luck 幸運', rarity: '常規款 Regular', furColor: '#C77DFF', furSecondary: '#E0AAFF', noseColor: '#7B2CBF', quote: 'Good fortune follows you everywhere! 🔮' },
+          { name: 'Happiness 快樂', rarity: '常規款 Regular', furColor: '#FFB703', furSecondary: '#FFE5D9', noseColor: '#FB8500', quote: 'Pure sunshine in plush form! 🧡' },
+          { name: 'ID 隱藏款 (SECRET)', rarity: '隱藏款 SECRET 1:72', isSecret: true, furColor: '#2B2D42', furSecondary: '#FF5C97', noseColor: '#FFD166', quote: '🌈 ULTRA SECRET! Rainbow Tie-Dye ID Edition!' }
+        ]
+      }
+    ];
+
+    /* --------------------------------------------------------------------------
+       4. APPLICATION STATE
+       -------------------------------------------------------------------------- */
+    let state = {
+      template: 'official', // Default to clean HK store style matching your screenshots
+      category: 'ALL',
+      searchQuery: '',
+      sortBy: 'recommended',
+      activeDetailId: 'secret-gallery',
+      detailMode: 'single', // 'single' or 'set'
+      detailQty: 1,
+      selectedSlotNo: null,
+      slotHintText: '點擊上方展示盒編號 (#1–#12) 搖一搖聽聲音！',
+      cart: [], // [{ productId, qty, label }]
+      purchasedBoxes: [],
+      collection: [],
+      timerInterval: null,
+      secondsLeft: 20
+    };
+
+    /* --------------------------------------------------------------------------
+       5. TEMPLATE SWITCHER & VIEW NAVIGATION
+       -------------------------------------------------------------------------- */
+    function setTemplate(tpl) {
+      state.template = tpl;
+      document.body.className = `theme-${tpl} min-h-screen flex flex-col`;
+
+      document.querySelectorAll('.tpl-btn').forEach(btn => {
+        if (btn.dataset.tpl === tpl) {
+          btn.className = 'tpl-btn px-3 py-1 rounded-full font-semibold transition flex items-center gap-1.5 bg-[#E60012] text-white shadow';
+        } else {
+          btn.className = 'tpl-btn px-3 py-1 rounded-full font-semibold transition flex items-center gap-1.5 bg-white/10 text-neutral-200 hover:bg-white/20';
+        }
+      });
+
+      const stickers = document.getElementById('kawaii-stickers');
+      if (stickers) {
+        stickers.style.display = tpl === 'official' ? 'none' : 'block';
+      }
+
+      AudioFX.playPop();
+      renderProducts();
+      if (!document.getElementById('view-detail').classList.contains('hidden')) {
+        renderProductDetail();
+      }
+    }
+
+    function switchView(viewName) {
+      document.getElementById('view-shop').classList.add('hidden');
+      document.getElementById('view-detail').classList.add('hidden');
+      document.getElementById('view-processing').classList.add('hidden');
+      document.getElementById('view-unbox').classList.add('hidden');
+
+      document.getElementById(`view-${viewName}`).classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openSeriesDetail(productId) {
+      state.activeDetailId = productId;
+      state.detailMode = 'single';
+      state.detailQty = 1;
+      state.selectedSlotNo = null;
+      const prod = PRODUCTS.find(p => p.id === productId);
+      state.slotHintText = `點擊展示盒編號 (#1–#${prod.setSize}) 搖盒試手氣，或直接購買！`;
+      renderProductDetail();
+      switchView('detail');
+    }
+
+    function setCategory(cat) {
+      state.category = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.dataset.cat === cat) {
+          btn.className = 'cat-btn text-left px-3 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition bg-[#E60012] text-white';
+        } else {
+          btn.className = 'cat-btn text-left px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition hover:bg-black/5';
+        }
+      });
+      renderProducts();
+    }
+
+    function filterByNav(navType) {
+      if (navType === 'HOT' || navType === 'ACCESSORY') {
+        setCategory('ALL');
+      } else {
+        setCategory(navType);
+      }
+      switchView('shop');
+      renderProducts();
+    }
+
+    function handleSearch(val) {
+      state.searchQuery = val.trim().toLowerCase();
+      switchView('shop');
+      renderProducts();
+    }
+
+    function handleSort(val) {
+      state.sortBy = val;
+      renderProducts();
+    }
+
+    /* --------------------------------------------------------------------------
+       6. CATALOG GRID RENDERING (Shows Display Tray & Product Photos)
+       -------------------------------------------------------------------------- */
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      let filtered = PRODUCTS.filter(p => {
+        const matchCat = state.category === 'ALL' || p.category === state.category;
+        const matchSearch = !state.searchQuery ||
+          p.name.toLowerCase().includes(state.searchQuery) ||
+          p.pulls.some(pull => pull.name.toLowerCase().includes(state.searchQuery));
+        return matchCat && matchSearch;
+      });
+
+      if (state.sortBy === 'price-asc') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (state.sortBy === 'price-desc') {
+        filtered.sort((a, b) => b.price - a.price);
+      }
+
+      document.getElementById('product-count').textContent = filtered.length;
+
+      grid.innerHTML = filtered.map(product => {
+        const isWacky = state.template === 'wacky';
+        const isOfficial = state.template === 'official';
+
+        return `
+          <article class="theme-card p-4 flex flex-col justify-between group">
+            <div>
+              <!-- Clickable Product / Pop Now Display Tray Photo -->
+              <div onclick="openSeriesDetail('${product.id}')"
+                class="theme-img-box relative pt-7 pb-4 px-4 mb-3.5 overflow-hidden flex items-center justify-center cursor-pointer">
+                <span class="absolute top-2.5 left-2.5 text-[10px] font-extrabold px-2 py-0.5 rounded-xs
+                  ${isOfficial ? 'bg-black text-white' : isWacky ? 'bg-[#FDE047] text-black border border-black' : 'bg-white text-[#E60012] rounded-full shadow-xs'}">
+                  ${product.tag}
+                </span>
+
+                <span class="absolute top-2.5 right-2.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/95 text-neutral-800 shadow-xs">
+                  選盒 & 全套款式 (${product.pulls.length}) →
+                </span>
+
+                <div class="transform group-hover:scale-105 transition-transform duration-300">
+                  ${product.trayType
+                    ? renderDisplayTraySVG(product.trayType, 'w-40 h-40')
+                    : renderLabubuCharacterSVG({ ...product.previewArt, size: 'w-32 h-40' })}
+                </div>
+              </div>
+
+              <div class="text-[11px] font-bold tracking-wider uppercase opacity-60 mb-0.5">
+                ${product.brand}
+              </div>
+              <h3 onclick="openSeriesDetail('${product.id}')"
+                class="font-bold text-sm sm:text-[15px] leading-snug line-clamp-2 min-h-[2.6rem] mb-2 cursor-pointer hover:text-[#E60012] transition">
+                ${product.name}
+              </h3>
+            </div>
+
+            <div class="pt-2.5 border-t flex items-center justify-between gap-2" style="border-color: var(--border-color);">
+              <div>
+                <span class="font-extrabold text-base sm:text-lg tracking-tight">
+                  HK$${product.price.toFixed(2)}
+                </span>
+                <span class="text-[11px] opacity-65 font-semibold">/ 抽</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <button onclick="openSeriesDetail('${product.id}')"
+                  style="border-color: var(--border-color);"
+                  class="px-2.5 py-2 rounded-lg border text-xs font-bold hover:bg-black/5 cursor-pointer">
+                  選盒
+                </button>
+                <button onclick="addToCart('${product.id}', 1)"
+                  class="btn-primary-theme px-3 py-2 text-xs font-bold cursor-pointer hover:opacity-95 active:scale-95">
+                  + 加入購物車
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    /* --------------------------------------------------------------------------
+       7. POP NOW DISPLAY TRAY & FULL LINEUP DETAIL VIEW
+          (Matches Screenshots 9–18: Interactive 1–12 Tray + Full Character Grid)
+       -------------------------------------------------------------------------- */
+    function selectTraySlot(slotNo) {
+      state.selectedSlotNo = slotNo;
+      state.detailMode = 'single';
+      state.detailQty = 1;
+      AudioFX.playShake();
+
+      const clues = [
+        `第 #${slotNo} 號盒：搖起來手感紮實，耳朵輪廓很明顯！✨`,
+        `第 #${slotNo} 號盒：盒子裡傳來清脆的配件聲，手氣超旺！🍀`,
+        `第 #${slotNo} 號盒：重量偏沉，說不定藏著 1:72 隱藏款喔！👑`,
+        `第 #${slotNo} 號盒：輕輕晃動有可愛的絨毛/手辦質感！🎀`
+      ];
+      state.slotHintText = clues[slotNo % clues.length];
+      renderProductDetail();
+    }
+
+    function setDetailSpec(mode) {
+      const prod = PRODUCTS.find(p => p.id === state.activeDetailId);
+      state.detailMode = mode;
+      state.detailQty = mode === 'set' ? prod.setSize : 1;
+      if (mode === 'set') state.selectedSlotNo = null;
+      AudioFX.playPop();
+      renderProductDetail();
+    }
+
+    function changeDetailQty(delta) {
+      if (state.detailMode === 'set') return;
+      state.detailQty = Math.max(1, Math.min(12, state.detailQty + delta));
+      renderProductDetail();
+    }
+
+    function renderProductDetail() {
+      const prod = PRODUCTS.find(p => p.id === state.activeDetailId);
+      if (!prod) return;
+
+      document.getElementById('detail-breadcrumb').textContent = prod.name;
+      const unitTotal = prod.price * state.detailQty;
+      const slotLabel = state.detailMode === 'set'
+        ? `整套${prod.setSize}個`
+        : (state.selectedSlotNo ? `POP NOW #${state.selectedSlotNo}號盒` : '隨機1個');
+
+      const container = document.getElementById('detail-main-container');
+      container.innerHTML = `
+        <!-- Top Split Layout (Matches Screenshots 9, 12, and 15) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+          <!-- Left Column: Pop Now Interactive Display Tray / Photo -->
+          <div class="lg:col-span-7 theme-card p-5 sm:p-7">
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-full bg-[#E60012] text-white text-[11px] font-bold">
+                POP NOW 在線抽盒機 • 點擊編號選盒
+              </span>
+              <span class="text-xs font-bold opacity-70">全套 ${prod.setSize} 盒不重複</span>
+            </div>
+
+            <!-- Visual Display Header + Interactive Clickable Numbered Boxes -->
+            <div class="theme-img-box p-4 sm:p-6 flex flex-col items-center">
+              <div class="mb-4">
+                ${prod.trayType
+                  ? renderDisplayTraySVG(prod.trayType, 'w-56 h-56 sm:w-64 sm:h-64')
+                  : renderLabubuCharacterSVG({ ...prod.previewArt, size: 'w-44 h-48' })}
+              </div>
+
+              <!-- Interactive Numbered Box Selector Grid (#1 to #setSize) -->
+              <div class="w-full max-w-md">
+                <div class="text-[11px] font-bold text-center mb-2 opacity-75">
+                  👇 點擊下方編號挑選你的專屬盲盒：
+                </div>
+                <div class="grid ${prod.setSize === 10 ? 'grid-cols-5' : 'grid-cols-6'} gap-2">
+                  ${Array.from({ length: prod.setSize }).map((_, idx) => {
+                    const num = idx + 1;
+                    const isSelected = state.selectedSlotNo === num;
+                    return `
+                      <button onclick="selectTraySlot(${num})"
+                        class="py-2 rounded-lg font-display font-bold text-xs border-2 transition cursor-pointer flex flex-col items-center
+                        ${isSelected
+                          ? 'bg-[#E60012] text-white border-[#E60012] scale-105 shadow-md'
+                          : 'bg-white text-neutral-800 border-neutral-300 hover:border-[#E60012]'}">
+                        <span>#${num}</span>
+                        <span class="text-[9px] opacity-80">${isSelected ? '已選' : '搖盒'}</span>
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+                <div class="mt-3 text-center text-xs font-bold py-2 px-3 rounded-xl bg-white/90 text-[#E60012] border" style="border-color: var(--border-color);">
+                  ${state.slotHintText}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Official POP MART HK Purchase Panel (Matches Screenshot 15) -->
+          <div class="lg:col-span-5 theme-card p-5 sm:p-7 space-y-5">
+            <div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <h2 class="font-display text-xl sm:text-2xl font-extrabold leading-snug">
+                  ${prod.name}
+                </h2>
+                <span class="shrink-0 bg-black text-white text-[10px] font-bold px-2 py-0.5">新品</span>
+              </div>
+
+              <div class="text-2xl sm:text-3xl font-extrabold text-[#E60012] mt-2">
+                HK$${prod.price.toFixed(2)} <span class="text-sm font-semibold text-neutral-500">/ 抽</span>
+              </div>
+
+              <!-- Free Shipping Banner from Screenshots 9 & 12 -->
+              <div class="inline-block mt-2 px-2.5 py-1 bg-[#FFF0F2] text-[#E60012] text-xs font-bold rounded-xs">
+                訂單實付滿 HK$299.00 免運費
+              </div>
+            </div>
+
+            <!-- 規格 Specification Selector (Matches Screenshot 15: 隨機1個 / 整套12個) -->
+            <div>
+              <div class="text-xs font-bold mb-2 opacity-75">規格 Specification</div>
+              <div class="grid grid-cols-2 gap-3">
+                <button onclick="setDetailSpec('single')"
+                  class="p-3 rounded-lg border-2 text-left text-xs font-bold transition cursor-pointer flex items-center gap-2
+                  ${state.detailMode === 'single' ? 'border-black bg-black/5' : 'border-neutral-200 opacity-75'}">
+                  <span>🎁</span>
+                  <div>
+                    <div>${state.selectedSlotNo ? `指定 #${state.selectedSlotNo} 號盒` : '隨機1個'}</div>
+                    <div class="text-[10px] opacity-65">HK$${prod.price.toFixed(2)}</div>
+                  </div>
+                </button>
+
+                <button onclick="setDetailSpec('set')"
+                  class="p-3 rounded-lg border-2 text-left text-xs font-bold transition cursor-pointer flex items-center gap-2
+                  ${state.detailMode === 'set' ? 'border-black bg-black/5' : 'border-neutral-200 opacity-75'}">
+                  <span>📦</span>
+                  <div>
+                    <div>整套${prod.setSize}個 (端盒)</div>
+                    <div class="text-[10px] opacity-65">HK$${(prod.price * prod.setSize).toFixed(2)}</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- 數量 Quantity Selector -->
+            <div>
+              <div class="text-xs font-bold mb-2 opacity-75">數量 Quantity</div>
+              <div class="inline-flex items-center border rounded-lg overflow-hidden" style="border-color: var(--border-color);">
+                <button onclick="changeDetailQty(-1)" class="w-9 h-9 font-bold hover:bg-black/5 cursor-pointer">−</button>
+                <span class="w-12 text-center text-sm font-extrabold">${state.detailQty}</span>
+                <button onclick="changeDetailQty(1)" class="w-9 h-9 font-bold hover:bg-black/5 cursor-pointer">+</button>
+              </div>
+              ${prod.lowStock ? `<div class="text-xs font-bold text-[#E60012] mt-1.5">低存貨 Low Stock</div>` : ''}
+            </div>
+
+            <!-- Dual Action Buttons (Matches Screenshot 15: 加入購物車 + 立即購買) -->
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <button onclick="addToCart('${prod.id}', ${state.detailQty}, '${slotLabel}')"
+                class="py-3.5 px-4 bg-black hover:bg-neutral-800 text-white font-bold text-sm rounded-lg transition cursor-pointer">
+                加入購物車
+              </button>
+              <button onclick="buyNowFromDetail('${prod.id}', ${state.detailQty}, '${slotLabel}')"
+                class="py-3.5 px-4 bg-[#E60012] hover:bg-[#c80010] text-white font-bold text-sm rounded-lg shadow transition cursor-pointer">
+                立即購買 (HK$${unitTotal.toFixed(0)})
+              </button>
+            </div>
+
+            <!-- Product Info Footer (Matches Screenshot 15) -->
+            <div class="pt-4 border-t text-xs space-y-1 opacity-75" style="border-color: var(--border-color);">
+              <div><strong>Brand:</strong> POP MART</div>
+              <div><strong>SIZE:</strong> 5.6–9.5cm / 2.2–3.74 inches</div>
+              <div><strong>MATERIAL:</strong> PVC / ABS / Plush Polyester</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Full Character Lineup Gallery (Matches Screenshots 10, 11, 13, 14, 16, 17, 18!) -->
+        <div class="theme-card p-5 sm:p-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-6 border-b" style="border-color: var(--border-color);">
+            <div>
+              <h3 class="font-display text-xl sm:text-2xl font-extrabold">
+                ✨ 本系列全款式圖鑑 (Series Character Lineup)
+              </h3>
+              <p class="text-xs opacity-70 mt-0.5">
+                購買後經過 20 秒處理並拆開盲盒，即可隨機獲得以下其中一款可愛 Labubu（含 1:72 隱藏款機會）！
+              </p>
+            </div>
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 self-start">
+              共 ${prod.pulls.length} 款角色
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
+            ${prod.pulls.map(pull => `
+              <div class="p-3 rounded-2xl border text-center flex flex-col items-center justify-between transition hover:-translate-y-1
+                ${pull.isSecret ? 'border-amber-400 bg-amber-50/70' : ''}"
+                style="border-color: ${pull.isSecret ? '#FBBF24' : 'var(--border-color)'}; background-color: ${pull.isSecret ? '' : 'var(--bg-image-box)'};">
+                <div class="w-full py-2">
+                  ${renderLabubuCharacterSVG({
+                    furColor: pull.furColor,
+                    furSecondary: pull.furSecondary || null,
+                    noseColor: pull.noseColor,
+                    accessory: pull.accessory || prod.previewArt.accessory,
+                    size: 'w-24 h-28'
+                  })}
+                </div>
+                <div class="mt-1">
+                  <div class="font-bold text-xs sm:text-sm leading-tight">${pull.name}</div>
+                  <div class="text-[10px] font-semibold mt-1 ${pull.isSecret ? 'text-amber-700 font-extrabold' : 'opacity-65'}">
+                    ${pull.rarity}
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    /* --------------------------------------------------------------------------
+       8. SHOPPING CART LOGIC & FREE SHIPPING BAR (HK$299.00)
+       -------------------------------------------------------------------------- */
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-3');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-3');
+      }, 2200);
+    }
+
+    function addToCart(productId, qty = 1, label = '隨機1個') {
+      const existing = state.cart.find(item => item.productId === productId && item.label === label);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        state.cart.push({ productId, qty, label });
+      }
+      AudioFX.playPop();
+      updateCartUI();
+      const prod = PRODUCTS.find(p => p.id === productId);
+      showToast(`已加入購物車：${prod.badgeText} (${label} ×${qty})`);
+    }
+
+    function buyNowFromDetail(productId, qty, label) {
+      addToCart(productId, qty, label);
+      toggleCart(true);
+    }
+
+    function updateQty(index, delta) {
+      if (!state.cart[index]) return;
+      state.cart[index].qty += delta;
+      if (state.cart[index].qty <= 0) {
+        state.cart.splice(index, 1);
+      }
+      AudioFX.playPop();
+      updateCartUI();
+    }
+
+    function toggleCart(open) {
+      const overlay = document.getElementById('cart-overlay');
+      const drawer = document.getElementById('cart-drawer');
+      if (open) {
+        overlay.classList.remove('hidden');
+        drawer.classList.remove('translate-x-full');
+      } else {
+        overlay.classList.add('hidden');
+        drawer.classList.add('translate-x-full');
+      }
+    }
+
+    function updateCartUI() {
+      const totalItems = state.cart.reduce((sum, i) => sum + i.qty, 0);
+      document.getElementById('cart-badge').textContent = totalItems;
+      document.getElementById('drawer-count').textContent = totalItems;
+
+      const container = document.getElementById('cart-items-container');
+      const checkoutBtn = document.getElementById('checkout-btn');
+
+      if (state.cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-16">
+            <div class="text-5xl mb-3">🛍️</div>
+            <p class="font-display font-bold text-base">購物車還是空的喔！</p>
+            <p class="text-xs opacity-65 mt-1">挑選你喜歡的 Labubu 盲盒加入購物車吧～</p>
+          </div>
+        `;
+        document.getElementById('cart-total').textContent = 'HK$0.00';
+        document.getElementById('shipping-bar-fill').style.width = '0%';
+        document.getElementById('shipping-promo-text').textContent = '訂單實付滿 HK$299.00 免運費';
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      let subtotal = 0;
+      container.innerHTML = state.cart.map((item, idx) => {
+        const prod = PRODUCTS.find(p => p.id === item.productId);
+        const lineTotal = prod.price * item.qty;
+        subtotal += lineTotal;
+
+        return `
+          <div class="flex items-center gap-3 p-3 rounded-2xl border" style="border-color: var(--border-color); background-color: var(--bg-page);">
+            <div class="w-16 h-16 rounded-xl flex items-center justify-center shrink-0" style="background-color: var(--bg-image-box);">
+              ${prod.trayType
+                ? renderDisplayTraySVG(prod.trayType, 'w-14 h-14')
+                : renderLabubuCharacterSVG({ ...prod.previewArt, size: 'w-14 h-14' })}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-[10px] font-bold text-[#E60012]">${prod.badgeText} • ${item.label}</div>
+              <h4 class="text-xs font-bold truncate">${prod.name}</h4>
+              <div class="text-sm font-extrabold mt-0.5">HK$${lineTotal.toFixed(2)}</div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button onclick="updateQty(${idx}, -1)"
+                class="w-7 h-7 rounded-lg border font-bold text-sm flex items-center justify-center hover:bg-black/5 cursor-pointer">−</button>
+              <span class="w-5 text-center text-xs font-bold">${item.qty}</span>
+              <button onclick="updateQty(${idx}, 1)"
+                class="w-7 h-7 rounded-lg border font-bold text-sm flex items-center justify-center hover:bg-black/5 cursor-pointer">+</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Free shipping progress (HK$299 threshold)
+      const pct = Math.min(100, (subtotal / 299) * 100);
+      document.getElementById('shipping-bar-fill').style.width = `${pct}%`;
+      if (subtotal >= 299) {
+        document.getElementById('shipping-promo-text').textContent = '🎉 已享 POP MART HK 免運費優惠！';
+      } else {
+        document.getElementById('shipping-promo-text').textContent = `再買 HK$${(299 - subtotal).toFixed(2)} 即享免運費`;
+      }
+
+      document.getElementById('cart-total').textContent = `HK$${subtotal.toFixed(2)}`;
+      checkoutBtn.disabled = false;
+    }
+
+    /* --------------------------------------------------------------------------
+       9. 20-SECOND CHECKOUT PROCESSING & INTERACTIVE BLIND BOX OPENING
+       -------------------------------------------------------------------------- */
+    function startCheckoutProcess() {
+      if (state.cart.length === 0) return;
+
+      const boxes = [];
+      state.cart.forEach(item => {
+        const prod = PRODUCTS.find(p => p.id === item.productId);
+        for (let i = 0; i < item.qty; i++) {
+          boxes.push({
+            uid: 'box_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+            product: prod,
+            boxLabel: item.label,
+            shakenCount: 0,
+            opened: false,
+            pulledCharacter: null
+          });
+        }
+      });
+
+      state.purchasedBoxes = boxes;
+      state.cart = [];
+      updateCartUI();
+      toggleCart(false);
+
+      switchView('processing');
+      document.getElementById('process-box-count').textContent = boxes.length;
+
+      state.secondsLeft = 20;
+      updateProcessingUI();
+
+      clearInterval(state.timerInterval);
+      state.timerInterval = setInterval(() => {
+        state.secondsLeft -= 1;
+        updateProcessingUI();
+
+        if (state.secondsLeft <= 0) {
+          clearInterval(state.timerInterval);
+          completeOrderAndGoUnbox();
+        }
+      }, 1000);
+    }
+
+    function updateProcessingUI() {
+      const s = Math.max(0, state.secondsLeft);
+      const elapsed = 20 - s;
+      const pct = Math.min(100, (elapsed / 20) * 100);
+
+      document.getElementById('countdown-seconds').textContent = s;
+      document.getElementById('process-progress-bar').style.width = `${pct}%`;
+
+      const statusText = document.getElementById('process-status-text');
+      const p1 = document.getElementById('step-pill-1');
+      const p2 = document.getElementById('step-pill-2');
+      const p3 = document.getElementById('step-pill-3');
+      const p4 = document.getElementById('step-pill-4');
+
+      [p1, p2, p3, p4].forEach(el => {
+        el.className = 'py-1.5 px-1 rounded-lg bg-neutral-200 text-neutral-500 transition';
+      });
+
+      if (elapsed < 5) {
+        statusText.textContent = '0–5s: 正在連接 POP MART 香港倉庫確認訂單... 🏢';
+        p1.className = 'py-1.5 px-1 rounded-lg bg-[#E60012] text-white transition shadow';
+      } else if (elapsed < 10) {
+        statusText.textContent = '5–10s: 店員正在為你搖盒注入好運氣 ✨...';
+        p1.className = 'py-1.5 px-1 rounded-lg bg-emerald-500 text-white transition';
+        p2.className = 'py-1.5 px-1 rounded-lg bg-[#E60012] text-white transition shadow';
+      } else if (elapsed < 15) {
+        statusText.textContent = '10–15s: 正在配對 1:72 隱藏款幸運值 🍀...';
+        p1.className = 'py-1.5 px-1 rounded-lg bg-emerald-500 text-white transition';
+        p2.className = 'py-1.5 px-1 rounded-lg bg-emerald-500 text-white transition';
+        p3.className = 'py-1.5 px-1 rounded-lg bg-[#E60012] text-white transition shadow';
+      } else {
+        statusText.textContent = '15–20s: 貼上防偽標籤並封箱發貨中 🎀...';
+        p1.className = 'py-1.5 px-1 rounded-lg bg-emerald-500 text-white transition';
+        p2.className = 'py-1.5 px-1 rounded-lg bg-emerald-500 text-white transition';
+        p3.className = 'py-1.5 px-1 rounded-lg bg-emerald-500 text-white transition';
+        p4.className = 'py-1.5 px-1 rounded-lg bg-[#E60012] text-white transition shadow';
+      }
+    }
+
+    function finishProcessingEarly() {
+      clearInterval(state.timerInterval);
+      completeOrderAndGoUnbox();
+    }
+
+    function completeOrderAndGoUnbox() {
+      AudioFX.playReveal(false);
+      spawnParticles(window.innerWidth / 2, window.innerHeight / 3, false);
+      switchView('unbox');
+      renderUnboxStage();
+    }
+
+    function renderUnboxStage() {
+      const grid = document.getElementById('unbox-grid');
+      const remaining = state.purchasedBoxes.filter(b => !b.opened).length;
+      const openAllBtn = document.getElementById('open-all-btn');
+      openAllBtn.style.display = remaining > 0 ? 'inline-flex' : 'none';
+
+      grid.innerHTML = state.purchasedBoxes.map((box, index) => {
+        if (!box.opened) {
+          return `
+            <div id="card-${box.uid}" class="theme-card p-5 flex flex-col items-center text-center relative overflow-hidden">
+              <div class="w-full flex items-center justify-between text-[11px] font-bold mb-3">
+                <span class="px-2.5 py-0.5 rounded-full bg-black text-white">BOX #${index + 1} • ${box.boxLabel}</span>
+                <span class="text-[#E60012]">未拆封 SEALED</span>
+              </div>
+
+              <!-- Series-Themed Mystery Blind Box Packaging -->
+              <div id="box-art-${box.uid}" onclick="shakeBox('${box.uid}')"
+                style="background-color: ${box.product.boxBg}; border-color: ${box.product.boxAccent};"
+                class="w-48 h-52 rounded-2xl border-3 flex flex-col items-center justify-between p-3 mb-4 cursor-pointer select-none shadow-md relative">
+                <div id="tear-${box.uid}" class="w-full py-1 rounded-md bg-[#E60012] text-white text-[9px] font-black tracking-widest uppercase shadow-xs">
+                  ✂ 拉開虛線拆盲盒 TEAR HERE ✂
+                </div>
+
+                <div class="my-auto flex flex-col items-center">
+                  <div class="bg-[#E60012] text-white font-black text-[10px] px-2 py-0.5 mb-2">POP MART</div>
+                  <div class="w-16 h-16 rounded-full bg-white/95 flex items-center justify-center shadow-sm border-2 border-dashed"
+                    style="border-color: ${box.product.boxAccent};">
+                    <span class="font-display text-3xl font-extrabold" style="color: ${box.product.boxAccent};">?</span>
+                  </div>
+                </div>
+
+                <div class="text-[10px] font-extrabold uppercase tracking-tight leading-tight px-1 py-0.5 rounded bg-black/35 text-white">
+                  ${box.product.badgeText}
+                </div>
+              </div>
+
+              <h3 class="font-bold text-xs sm:text-sm line-clamp-1 mb-1">${box.product.name}</h3>
+              <p id="hint-${box.uid}" class="text-xs min-h-[1.25rem] mb-4 font-semibold" style="color: var(--text-muted);">
+                ${box.shakenCount > 0 ? `✨ 已搖盒 ${box.shakenCount} 次，手氣爆棚！` : '點擊「搖一搖」聽聲音，再「拆開盲盒」揭曉款式！'}
+              </p>
+
+              <div class="w-full grid grid-cols-2 gap-2.5">
+                <button onclick="shakeBox('${box.uid}')"
+                  style="border-color: var(--border-color);"
+                  class="py-2.5 px-3 rounded-xl border-2 font-display font-bold text-xs hover:bg-black/5 active:scale-95 transition cursor-pointer">
+                  👋 搖一搖 Shake
+                </button>
+                <button onclick="unboxSingle('${box.uid}', true)"
+                  class="py-2.5 px-3 rounded-xl bg-[#E60012] hover:bg-[#c80010] text-white font-display font-bold text-xs shadow active:scale-95 transition cursor-pointer">
+                  🎉 拆開盲盒 Open!
+                </button>
+              </div>
+            </div>
+          `;
+        } else {
+          const char = box.pulledCharacter;
+          return `
+            <div class="theme-card p-5 flex flex-col items-center text-center relative overflow-hidden
+              ${char.isSecret ? 'ring-4 ring-amber-400 bg-gradient-to-b from-amber-50 to-white' : ''}">
+              <div class="w-full flex items-center justify-between text-[11px] font-bold mb-2">
+                <span class="px-2.5 py-0.5 rounded-full ${char.isSecret ? 'bg-amber-400 text-black' : 'bg-emerald-100 text-emerald-800'}">
+                  ${char.rarity}
+                </span>
+                <span class="opacity-60">BOX #${index + 1}</span>
+              </div>
+
+              <div class="theme-img-box w-full py-4 mb-3 relative">
+                ${renderLabubuCharacterSVG({
+                  furColor: char.furColor,
+                  furSecondary: char.furSecondary || null,
+                  noseColor: char.noseColor,
+                  accessory: char.accessory || box.product.previewArt.accessory,
+                  size: 'w-36 h-40'
+                })}
+              </div>
+
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#E60012]">${box.product.badgeText}</div>
+              <h3 class="font-display text-lg font-extrabold mt-0.5">${char.name}</h3>
+              <p class="text-xs mt-1 mb-3 italic" style="color: var(--text-muted);">"${char.quote}"</p>
+
+              <button onclick="showCharacterModal('${box.uid}')"
+                class="w-full py-2 rounded-xl text-xs font-bold border hover:bg-black/5 transition cursor-pointer"
+                style="border-color: var(--border-color);">
+                🪪 查看專屬收藏身分卡
+              </button>
+            </div>
+          `;
+        }
+      }).join('');
+    }
+
+    function shakeBox(uid) {
+      const box = state.purchasedBoxes.find(b => b.uid === uid);
+      if (!box || box.opened) return;
+
+      box.shakenCount += 1;
+      AudioFX.playShake();
+
+      const artEl = document.getElementById(`box-art-${uid}`);
+      if (artEl) {
+        artEl.classList.remove('animate-shake');
+        void artEl.offsetWidth;
+        artEl.classList.add('animate-shake');
+      }
+
+      const hints = [
+        '👂 盒子裡傳來可愛的配件碰撞聲！',
+        '✨ 感覺到圓滾滾的 Labubu 臉蛋啦！',
+        '🍀 哇！盒子沉甸甸的，難道是 1:72 隱藏款？！',
+        '🎀 兔耳朵頂到了盒蓋，快拆開看看是哪一款！'
+      ];
+      const hintEl = document.getElementById(`hint-${uid}`);
+      if (hintEl) {
+        hintEl.textContent = hints[box.shakenCount % hints.length];
+      }
+    }
+
+    function rollRandomPull(product) {
+      const pulls = product.pulls;
+      const secret = pulls.find(p => p.isSecret);
+      const regulars = pulls.filter(p => !p.isSecret);
+
+      if (secret && regulars.length > 0 && Math.random() < 0.14) {
+        return secret;
+      }
+      const pool = regulars.length > 0 ? regulars : pulls;
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    function unboxSingle(uid, showPopup = true) {
+      const box = state.purchasedBoxes.find(b => b.uid === uid);
+      if (!box || box.opened) return;
+
+      const tearEl = document.getElementById(`tear-${uid}`);
+      if (tearEl) tearEl.classList.add('animate-tear');
+
+      const pulled = rollRandomPull(box.product);
+      box.opened = true;
+      box.pulledCharacter = pulled;
+
+      state.collection.unshift({
+        uid: box.uid,
+        seriesName: box.product.badgeText,
+        accessory: pulled.accessory || box.product.previewArt.accessory,
+        character: pulled
+      });
+      document.getElementById('collection-badge').textContent = state.collection.length;
+
+      setTimeout(() => {
+        AudioFX.playReveal(Boolean(pulled.isSecret));
+        spawnParticles(window.innerWidth / 2, window.innerHeight / 2, Boolean(pulled.isSecret));
+        renderUnboxStage();
+        if (showPopup) {
+          showCharacterModal(uid);
+        }
+      }, 280);
+    }
+
+    function openAllBoxes() {
+      const unopened = state.purchasedBoxes.filter(b => !b.opened);
+      if (unopened.length === 0) return;
+
+      unopened.forEach((box, i) => {
+        setTimeout(() => {
+          unboxSingle(box.uid, i === unopened.length - 1);
+        }, i * 240);
+      });
+    }
+
+    function spawnParticles(originX, originY, isSecret = false) {
+      const emojis = isSecret
+        ? ['🌟', '👑', '✨', '🌈', '💖', '🎉', '💎']
+        : ['✨', '🎀', '🍓', '💖', '⭐', '🐰'];
+      const count = isSecret ? 38 : 24;
+
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'particle text-xl sm:text-2xl select-none';
+        el.textContent = emojis[i % emojis.length];
+        el.style.left = `${originX}px`;
+        el.style.top = `${originY}px`;
+
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+        const dist = 90 + Math.random() * 190;
+        el.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+        el.style.setProperty('--ty', `${Math.sin(angle) * dist - 40}px`);
+        el.style.setProperty('--rot', `${(Math.random() - 0.5) * 540}deg`);
+
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1250);
+      }
+    }
+
+    function showCharacterModal(uid) {
+      const box = state.purchasedBoxes.find(b => b.uid === uid);
+      if (!box || !box.pulledCharacter) return;
+
+      const char = box.pulledCharacter;
+      const body = document.getElementById('reveal-modal-body');
+
+      body.innerHTML = `
+        <div class="inline-block px-3.5 py-1 rounded-full text-xs font-extrabold mb-3
+          ${char.isSecret ? 'bg-gradient-to-r from-amber-400 to-pink-500 text-white shadow' : 'bg-[#E60012] text-white'}">
+          ${char.isSecret ? '👑 恭喜抽中隱藏款 SECRET！(1:72)' : '✨ 恭喜開出全新 LABUBU！'}
+        </div>
+
+        <div class="animate-pop-reveal my-2">
+          ${renderLabubuCharacterSVG({
+            furColor: char.furColor,
+            furSecondary: char.furSecondary || null,
+            noseColor: char.noseColor,
+            accessory: char.accessory || box.product.previewArt.accessory,
+            size: 'w-44 h-48'
+          })}
+        </div>
+
+        <div class="text-xs font-bold uppercase tracking-widest opacity-60 mt-2">
+          THE MONSTERS • ${box.product.badgeText}
+        </div>
+        <h3 class="font-display text-2xl sm:text-3xl font-extrabold mt-0.5 mb-2">
+          ${char.name}
+        </h3>
+        <div class="p-3 rounded-2xl text-xs sm:text-sm font-medium mb-5" style="background-color: var(--bg-image-box);">
+          "${char.quote}"
+        </div>
+
+        <button onclick="closeRevealModal()"
+          class="w-full py-3 rounded-2xl bg-[#E60012] hover:bg-[#c80010] text-white font-display font-bold text-sm shadow cursor-pointer transition">
+          太可愛了！收進我的收藏櫃 🎉
+        </button>
+      `;
+
+      document.getElementById('reveal-modal').classList.remove('hidden');
+    }
+
+    function closeRevealModal() {
+      document.getElementById('reveal-modal').classList.add('hidden');
+    }
+
+    function openCollectionModal() {
+      const grid = document.getElementById('collection-grid');
+      if (state.collection.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-12">
+            <div class="text-4xl mb-2">📦</div>
+            <p class="font-display font-bold text-base">你的收藏櫃還是空的喔！</p>
+            <p class="text-xs opacity-70 mt-1">快去挑選盲盒結帳並拆盒，收集全套 Labubu 吧！</p>
+          </div>
+        `;
+      } else {
+        grid.innerHTML = state.collection.map(item => `
+          <div class="p-3 rounded-2xl border text-center ${item.character.isSecret ? 'border-amber-400 bg-amber-50' : ''}"
+            style="border-color: var(--border-color); background-color: var(--bg-image-box);">
+            ${renderLabubuCharacterSVG({
+              furColor: item.character.furColor,
+              furSecondary: item.character.furSecondary || null,
+              noseColor: item.character.noseColor,
+              accessory: item.accessory,
+              size: 'w-24 h-28'
+            })}
+            <div class="text-[9px] font-bold text-[#E60012] uppercase mt-1">${item.seriesName}</div>
+            <div class="font-display font-bold text-xs">${item.character.name}</div>
+            <div class="text-[10px] opacity-70">${item.character.rarity}</div>
+          </div>
+        `).join('');
+      }
+      document.getElementById('collection-modal').classList.remove('hidden');
+    }
+
+    function closeCollectionModal() {
+      document.getElementById('collection-modal').classList.add('hidden');
+    }
+
+    /* --------------------------------------------------------------------------
+       10. INITIALIZE STOREFRONT ON LOAD
+       -------------------------------------------------------------------------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProducts();
+      updateCartUI();
+    });
+  </script>
+</body>
+</html>
